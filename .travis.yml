@@ -19,6 +19,7 @@ matrix:
 
 install:
     - travis_retry pip install -U pip setuptools
+    - travis_retry pip install -U tox
 
 script:
     - travis_retry tox
