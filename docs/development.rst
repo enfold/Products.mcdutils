@@ -1,5 +1,5 @@
-Installation and development
-============================
+Development
+===========
 
 .. highlight:: console
 
