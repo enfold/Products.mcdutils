@@ -13,7 +13,7 @@ Change log
 
 - package configuration cleanup
 
-- full flake8 compliance
+- full ``flake8`` compliance
 
 Possible breaking change
 ~~~~~~~~~~~~~~~~~~~~~~~~
