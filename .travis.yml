@@ -32,4 +32,4 @@ notifications:
 cache:
   pip: true
   directories:
-- eggs/
+    - eggs/
