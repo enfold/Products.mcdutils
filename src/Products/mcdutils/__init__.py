@@ -1,12 +1,12 @@
 """ Product:  mcdutils
 
 Implement Zope sessions using memcached as the backing store.
-
-$Id: __init__.py,v 1.6 2006/06/07 05:43:09 tseaver Exp $
 """
+
 
 class MemCacheError(IOError):
     pass
+
 
 def initialize(context):
 
@@ -16,8 +16,7 @@ def initialize(context):
     context.registerClass(MemCacheProxy,
                           constructors=(addMemCacheProxyForm,
                                         addMemCacheProxy),
-                          icon='www/proxy.gif',
-                         )
+                          icon='www/proxy.gif')
 
     from Products.mcdutils.sessiondata import MemCacheSessionDataContainer
     from Products.mcdutils.sessiondata \
@@ -26,8 +25,7 @@ def initialize(context):
     context.registerClass(MemCacheSessionDataContainer,
                           constructors=(addMemCacheSessionDataContainerForm,
                                         addMemCacheSessionDataContainer),
-                          icon='www/sdc.gif',
-                         )
+                          icon='www/sdc.gif')
 
     from Products.mcdutils.zcache import MemCacheZCacheManager
     from Products.mcdutils.zcache \
@@ -36,5 +34,4 @@ def initialize(context):
     context.registerClass(MemCacheZCacheManager,
                           constructors=(addMemCacheZCacheManagerForm,
                                         addMemCacheZCacheManager),
-                          icon='www/zcm.gif',
-                         )
+                          icon='www/zcm.gif')

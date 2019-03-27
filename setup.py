@@ -1,28 +1,53 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages
+from setuptools import setup
 
-readme = open('README.txt').read()
+
+readme = open('README.md').read()
 history = open('CHANGES.txt').read()
 long_description = readme + '\n\n' + history
 
 setup(name='Products.mcdutils',
-      version='0.2b4dev',
-      description='A Zope2 product which provides facilities for storing sessions in memcached.',
+      version='0.2.dev0',
+      description=('A Zope2 product which provides facilities for'
+                   'storing sessions in memcached.'),
       long_description=long_description,
-      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
-          'Programming Language :: Python',
-          'Topic :: Software Development :: Libraries :: Python Modules',
-          'Framework :: Zope2'],
+        'Development Status :: 5 - Production/Stable',
+        'Framework :: Zope',
+        'Framework :: Zope2',
+        'Framework :: Zope :: 2',
+        'Framework :: Zope :: 4',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: Zope Public License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Topic :: Internet :: WWW/HTTP :: Session'],
       keywords='session memcache memcached Products',
-      author='Tres Seaver',
+      author='Tres Seaver and contributors',
       author_email='tseaver@palladion.com',
-      maintainer='Christian Theune',
-      maintainer_email='ct@gocept.com',
-      url='https://bitbucket.org/ctheune/mcdutils',
+      maintainer='Jens Vagelpohl',
+      maintainer_email='jens@netz.ooo',
+      url='https://github.com/dataflake/Products.mcdutils',
       license='ZPL 2.1',
       packages=find_packages('src'),
-      package_dir={'': 'src'},
-      namespace_packages=['Products'],
       include_package_data=True,
+      namespace_packages=['Products'],
+      package_dir={'': 'src'},
       zip_safe=False,
-      install_requires=['setuptools', 'Zope2'])
+      python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*',
+      install_requires=[
+        'setuptools',
+        'six',
+        'Zope2',
+        ],
+      extras_require={
+        'docs': ['repoze.sphinx.autointerface', 'Sphinx'],
+        },
+      )

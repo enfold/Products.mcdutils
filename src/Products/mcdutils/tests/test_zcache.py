@@ -1,8 +1,6 @@
-""" Unit tests for Products.mcdutils.zcache
-
-$Id: test_zcache.py,v 1.1 2006/06/07 05:43:09 tseaver Exp $
-"""
+""" Unit tests for Products.mcdutils.zcache """
 import unittest
+
 
 class TestsOf_aggregateKey(unittest.TestCase):
 
@@ -21,16 +19,15 @@ class TestsOf_aggregateKey(unittest.TestCase):
         key = aggregateKey(DummyOb(),
                            request={'aaa': 'AAA',
                                     'bbb': 'BBB',
-                                    'ccc': 'CCC',
-                                   },
-                           request_names=['aaa', 'ccc'],
-                          )
+                                    'ccc': 'CCC'},
+                           request_names=['aaa', 'ccc'])
         self.assertEqual(key, '%s||aaa:AAA,ccc:CCC|' % _DUMMY_PATH_STR)
 
     def test_explicit_local_keys(self):
         from Products.mcdutils.zcache import aggregateKey
         key = aggregateKey(DummyOb(), local_keys={'foo': 'bar', 'baz': 'bam'})
         self.assertEqual(key, '%s|||baz:bam,foo:bar' % _DUMMY_PATH_STR)
+
 
 class MemCacheZCacheTests(unittest.TestCase):
 
@@ -66,7 +63,6 @@ class MemCacheZCacheTests(unittest.TestCase):
         proxy = DummyProxy()
         cache = self._makeOne(proxy)
 
-        _cached = proxy._cached 
         proxy._cached['%s|||' % _DUMMY_PATH_STR] = 'XYZZY'
         proxy._cached['%s|foo||' % _DUMMY_PATH_STR] = 'ABCDEF'
 
@@ -77,7 +73,6 @@ class MemCacheZCacheTests(unittest.TestCase):
         proxy = DummyProxy()
         cache = self._makeOne(proxy)
 
-        _cached = proxy._cached 
         proxy._cached['%s|||' % _DUMMY_PATH_STR] = 'XYZZY'
         proxy._cached['%s|foo||' % _DUMMY_PATH_STR] = 'ABCDEF'
 
@@ -87,7 +82,6 @@ class MemCacheZCacheTests(unittest.TestCase):
         proxy = DummyProxy()
         cache = self._makeOne(proxy, request_names=('bar', 'qux'))
 
-        _cached = proxy._cached 
         proxy._cached['%s|||' % _DUMMY_PATH_STR] = 'XYZZY'
         proxy._cached['%s||bar:baz,qux:|' % _DUMMY_PATH_STR] = 'ABCDEF'
 
@@ -100,7 +94,7 @@ class MemCacheZCacheTests(unittest.TestCase):
         proxy = DummyProxy()
         cache = self._makeOne(proxy)
 
-        _cached = proxy._cached 
+        _cached = proxy._cached
         proxy._cached['%s|||' % _DUMMY_PATH_STR] = 'XYZZY'
         proxy._cached['%s|foo||' % _DUMMY_PATH_STR] = 'ABCDEF'
         proxy._cached['%s|bar||' % _DUMMY_PATH_STR] = 'LMNOP'
@@ -116,33 +110,33 @@ class MemCacheZCacheTests(unittest.TestCase):
         proxy = DummyProxy()
         cache = self._makeOne(proxy)
 
-        _cached = proxy._cached 
+        _cached = proxy._cached
 
         cache.ZCache_set(DummyOb(), 'XYZZY')
 
         self.assertEqual(len(_cached), 2)
         key = '%s|||' % _DUMMY_PATH_STR
-        self.failUnless(key in _cached[_DUMMY_PATH_STR])
+        self.assertTrue(key in _cached[_DUMMY_PATH_STR])
         self.assertEqual(_cached[key], 'XYZZY')
 
     def test_ZCache_set_with_view_name(self):
         proxy = DummyProxy()
         cache = self._makeOne(proxy)
 
-        _cached = proxy._cached 
+        _cached = proxy._cached
 
         cache.ZCache_set(DummyOb(), 'XYZZY', view_name='v')
 
         self.assertEqual(len(_cached), 2)
         key = '%s|v||' % _DUMMY_PATH_STR
-        self.failUnless(key in _cached[_DUMMY_PATH_STR])
+        self.assertTrue(key in _cached[_DUMMY_PATH_STR])
         self.assertEqual(_cached[key], 'XYZZY')
 
     def test_ZCache_set_replacing(self):
         proxy = DummyProxy()
         cache = self._makeOne(proxy)
 
-        _cached = proxy._cached 
+        _cached = proxy._cached
         key1 = '%s|||' % _DUMMY_PATH_STR
         key2 = '%s|v||' % _DUMMY_PATH_STR
         _cached[_DUMMY_PATH_STR] = {key1: 1, key2: 1}
@@ -153,11 +147,12 @@ class MemCacheZCacheTests(unittest.TestCase):
 
         self.assertEqual(len(_cached), 3)
 
-        self.failUnless(key1 in _cached[_DUMMY_PATH_STR])
+        self.assertTrue(key1 in _cached[_DUMMY_PATH_STR])
         self.assertEqual(_cached[key1], 'GHIJKL')
 
-        self.failUnless(key2 in _cached[_DUMMY_PATH_STR])
+        self.assertTrue(key2 in _cached[_DUMMY_PATH_STR])
         self.assertEqual(_cached[key2], 'XYZZY')
+
 
 class MemCacheZCacheManagerTests(unittest.TestCase):
 
@@ -190,9 +185,11 @@ class MemCacheZCacheManagerTests(unittest.TestCase):
 _DUMMY_PATH = ('path', 'to', 'dummy')
 _DUMMY_PATH_STR = '/'.join(_DUMMY_PATH)
 
+
 class DummyOb:
     def getPhysicalPath(self):
         return _DUMMY_PATH
+
 
 class DummyProxy:
     def __init__(self):
@@ -209,12 +206,10 @@ class DummyProxy:
     def remove(self, key):
         del self._cached[key]
 
+
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestsOf_aggregateKey))
     suite.addTest(unittest.makeSuite(MemCacheZCacheTests))
     suite.addTest(unittest.makeSuite(MemCacheZCacheManagerTests))
     return suite
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')

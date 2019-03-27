@@ -1,2 +1,9 @@
-include CHANGES.txt README.txt
-recursive-include src *.gif *.pt *.py *.txt
+include *.txt
+include *.md
+include *.cfg
+
+recursive-include src *
+recursive-include docs *
+
+global-exclude *.pyc
+global-exclude *.pyo

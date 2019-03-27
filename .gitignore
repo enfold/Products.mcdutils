@@ -1,0 +1,16 @@
+bin/
+develop-eggs/
+dist/
+eggs/
+var/
+.installed.cfg
+.coverage
+*.swp
+*.pyc
+*.pyo
+parts/
+*.egg-info/
+.eggs/
+.tox/
+coverage.xml
+docs/_build/

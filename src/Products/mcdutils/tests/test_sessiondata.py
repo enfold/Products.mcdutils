@@ -1,12 +1,11 @@
-""" Unit tests for Products.mcdutils.proxy
-
-$Id: test_sessiondata.py,v 1.5 2006/10/05 21:04:25 tseaver Exp $
-"""
+""" Unit tests for Products.mcdutils.sessiondata """
 import unittest
+
 
 class DummyClient:
     def _get_server(self, key):
         return self, key
+
 
 class DummyProxy:
     def __init__(self):
@@ -19,6 +18,7 @@ class DummyProxy:
         return self._cached.get(key, default)
 
     get = _get
+
 
 class MemCacheSessionDataTests(unittest.TestCase):
 
@@ -46,13 +46,14 @@ class MemCacheSessionDataTests(unittest.TestCase):
 
     def test_empty(self):
         sdc = self._makeOne()
-        self.assertEqual(sdc.has_key('foobar'), False)
-        self.assertEqual(sdc.get('foobar'), None)
+        self.assertFalse(sdc.has_key('foobar'))  # NOQA: flake8: W601
+        self.assertIsNone(sdc.get('foobar'))
 
     def test_invalid_proxy_raises_MemCacheError(self):
         from Products.mcdutils import MemCacheError
         sdc = self._makeOne(with_proxy=False)
-        self.assertRaises(MemCacheError, sdc.has_key, 'foobar')
+        self.assertRaises(MemCacheError,
+                          sdc.has_key, 'foobar')  # NOQA: flake8: W601
         self.assertRaises(MemCacheError, sdc.get, 'foobar')
         self.assertRaises(MemCacheError, sdc.new_or_existing, 'foobar')
 
@@ -61,26 +62,23 @@ class MemCacheSessionDataTests(unittest.TestCase):
         from transaction.interfaces import IDataManager
         sdc = self._makeOne()
         created = sdc.new_or_existing('foobar')
-        self.failUnless(isinstance(created, PersistentMapping))
+        self.assertTrue(isinstance(created, PersistentMapping))
         jar = created._p_jar
-        self.failIf(jar is None)
-        self.failUnless(IDataManager.providedBy(jar))
+        self.assertFalse(jar is None)
+        self.assertTrue(IDataManager.providedBy(jar))
 
     def test_has_key_after_new_or_existing_returns_True(self):
-        from persistent.mapping import PersistentMapping
         sdc = self._makeOne()
-        created = sdc.new_or_existing('foobar')
-        self.assertEqual(sdc.has_key('foobar'), True)
+        sdc.new_or_existing('foobar')
+        self.assertTrue(sdc.has_key('foobar'))  # NOQA: flake8: W601
 
     def test_get_after_new_or_existing_returns_same(self):
         sdc = self._makeOne()
         created = sdc.new_or_existing('foobar')
-        self.failUnless(sdc.get('foobar') is created)
+        self.assertTrue(sdc.get('foobar') is created)
+
 
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(MemCacheSessionDataTests))
     return suite
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')

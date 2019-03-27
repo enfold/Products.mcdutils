@@ -1,21 +1,28 @@
-Changes
-=======
+Change log
+==========
 
-0.2b4 (unreleased)
-------------------
+1.0 (unreleased)
+----------------
+- Zope 4 compatibility
 
-- Nothing changed yet.
+- Python 3 compatibility
+
+- documentation using Sphinx
+
+- ``tox`` configuration for unit, coverage and code quality tests
+
+- package configuration cleanup
+
+- full flake8 compliance
 
 
 0.2b3 (2011-11-21)
 ------------------
-
 - Extend MANIFEST.in to include other missing files (.gif, .pt, .txt)
 
 
 0.2b2 (2011-11-21)
 ------------------
-
 - Fix source distribution by including README.txt and CHANGES.txt via
   manifest.
 
@@ -24,7 +31,6 @@ Changes
 
 0.2b1 (2011-11-19)
 ------------------
-
 - Turn product into an egg and release on PyPI.
 
 - Implement a forced refresh of the in-process cache of memcache data at the
@@ -48,7 +54,6 @@ Changes
 
 0.1 (2006-05-31)
 ----------------
-
 - CVS tag, 'mcdutils-0_1'
 
 - Initial public release.

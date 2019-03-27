@@ -1,23 +1,18 @@
-""" mcdutils proxy
-
-$Id: proxy.py,v 1.11 2006/06/07 05:42:57 tseaver Exp $
-"""
-import memcache
-import UserDict
-
-from zope.interface import implementedBy
-from zope.interface import implements
-
+""" Memcache proxy """
+from AccessControl.class_init import InitializeClass
 from AccessControl.SecurityInfo import ClassSecurityInfo
-from Globals import InitializeClass
-from OFS.SimpleItem import SimpleItem
 from OFS.PropertyManager import PropertyManager
+from OFS.SimpleItem import SimpleItem
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+from zope.interface import implementedBy
+from zope.interface import implementer
 
-from Products.mcdutils.interfaces import IMemCacheProxy
-from Products.mcdutils.mapping import MemCacheMapping
+from . import memcache
+from .interfaces import IMemCacheProxy
+from .mapping import MemCacheMapping
 
-class FauxClient(UserDict.UserDict):
+
+class FauxClient(dict):
 
     def _get_server(self, key):
         return self, key
@@ -25,27 +20,24 @@ class FauxClient(UserDict.UserDict):
     def set(self, key, value):
         self[key] = value
 
+
+@implementer(IMemCacheProxy + implementedBy(SimpleItem)
+             + implementedBy(PropertyManager))
 class MemCacheProxy(SimpleItem, PropertyManager):
     """ Implement ISDC via a a pool of memcache servers.
     """
-    implements(IMemCacheProxy
-             + implementedBy(SimpleItem)
-             + implementedBy(PropertyManager)
-             )
     security = ClassSecurityInfo()
 
     _v_cached = None
     _v_client = None
 
-    security.declarePrivate('_get_cached')
     def _get_cached(self):
         if self._v_cached is None:
             self._v_cached = {}
         return self._v_cached
 
-    _cached = property(_get_cached,)
+    _cached = property(_get_cached)
 
-    security.declarePrivate('_get_client')
     def _get_client(self):
         if self._v_client is not None:
             return self._v_client
@@ -57,11 +49,10 @@ class MemCacheProxy(SimpleItem, PropertyManager):
 
         return client
 
-    client = property(_get_client,)
+    client = property(_get_client)
 
     _servers = ()
 
-    security.declarePrivate('_set_servers')
     def _set_servers(self, value):
         self._servers = value
         try:
@@ -79,15 +70,13 @@ class MemCacheProxy(SimpleItem, PropertyManager):
     #   ZMI
     #
     meta_type = 'MemCache Proxy'
-    _properties = (
-        {'id': 'servers', 'type': 'lines', 'mode': 'w'},
-    )
+    _properties = ({'id': 'servers', 'type': 'lines', 'mode': 'w'},)
 
     manage_options = (PropertyManager.manage_options
-                    + SimpleItem.manage_options
-                     )
+                      + SimpleItem.manage_options)
 
-    security.declarePrivate('get')
+    security.declarePrivate('get')  # NOQA: flake8: D001
+
     def get(self, key):
         """ See IMemCacheProxy.
         """
@@ -102,13 +91,15 @@ class MemCacheProxy(SimpleItem, PropertyManager):
 
         return mapping
 
-    security.declarePrivate('get_multi')
+    security.declarePrivate('get_multi')  # NOQA: flake8: D001
+
     def get_multi(self, keys):
         """ See IMemCacheProxy.
         """
         return self._get_remote_multi(keys)
 
-    security.declarePrivate('set')
+    security.declarePrivate('set')  # NOQA: flake8: D001
+
     def set(self, key, value):
         """ See IMemCacheProxy.
         """
@@ -119,7 +110,8 @@ class MemCacheProxy(SimpleItem, PropertyManager):
             pass
         return rc
 
-    security.declarePrivate('add')
+    security.declarePrivate('add')  # NOQA: flake8: D001
+
     def add(self, key, value):
         """ Store value (a mapping) for 'key'.
 
@@ -134,7 +126,8 @@ class MemCacheProxy(SimpleItem, PropertyManager):
             pass
         return rc
 
-    security.declarePrivate('replace')
+    security.declarePrivate('replace')  # NOQA: flake8: D001
+
     def replace(self, key, value):
         """ Store value (a mapping) for 'key'.
 
@@ -149,14 +142,15 @@ class MemCacheProxy(SimpleItem, PropertyManager):
             pass
         return rc
 
-    security.declarePrivate('delete')
+    security.declarePrivate('delete')  # NOQA: flake8: D001
+
     def delete(self, key, time=0):
         """ Remove the value stored in the cache under 'key'.
 
         o Return a boolean to indicate success.
 
         o 'time', if nonzero, will be tested in the cache to determine
-          whether the item's 
+          whether the item's
         """
         rc = self.client.delete(key, time)
         try:
@@ -165,7 +159,8 @@ class MemCacheProxy(SimpleItem, PropertyManager):
             pass
         return rc
 
-    security.declarePrivate('create')
+    security.declarePrivate('create')  # NOQA: flake8: D001
+
     def create(self, key):
         """ See IMemCacheProxy.
         """
@@ -175,19 +170,17 @@ class MemCacheProxy(SimpleItem, PropertyManager):
     #
     #   Helper methods
     #
-    security.declarePrivate('_get_remote')
     def _get_remote(self, key):
         mapping = self._cached[key] = self.client.get(key)
         if isinstance(mapping, MemCacheMapping):
             mapping._p_proxy = self
             mapping._p_key = key
             mapping._p_oid = hash(key)
-            mapping._p_jar = mapping  
+            mapping._p_jar = mapping
             mapping._p_joined = False
             mapping._p_changed = 0
         return mapping
 
-    security.declarePrivate('_get_remote_multi')
     def _get_remote_multi(self, keys):
         meta_map = self.client.get_multi(keys)
         result = {}
@@ -196,12 +189,13 @@ class MemCacheProxy(SimpleItem, PropertyManager):
                 mapping._p_proxy = self
                 mapping._p_key = key
                 mapping._p_oid = hash(key)
-                mapping._p_jar = mapping  
+                mapping._p_jar = mapping
                 mapping._p_joined = False
                 mapping._p_changed = 0
-            result[k] = mapping
+            result[key] = mapping
 
         return result
+
 
 InitializeClass(MemCacheProxy)
 
@@ -213,6 +207,7 @@ def addMemCacheProxy(dispatcher, id, REQUEST):
     proxy._setId(id)
     dispatcher._setObject(id, proxy)
     REQUEST['RESPONSE'].redirect('%s/manage_workspace'
-                                    % dispatcher.absolute_url())
+                                 % dispatcher.absolute_url())
+
 
 addMemCacheProxyForm = PageTemplateFile('www/add_mcp.pt', globals())

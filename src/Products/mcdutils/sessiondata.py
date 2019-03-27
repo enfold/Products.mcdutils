@@ -1,32 +1,26 @@
-""" mcdutils session data container
-
-$Id: sessiondata.py,v 1.3 2006/06/06 22:54:05 tseaver Exp $
-"""
-from zope.interface import implementedBy
-from zope.interface import implements
-
+""" Products.mcdutils session data container """
+from AccessControl.class_init import InitializeClass
 from AccessControl.SecurityInfo import ClassSecurityInfo
-from Globals import InitializeClass
-from OFS.SimpleItem import SimpleItem
 from OFS.PropertyManager import PropertyManager
+from OFS.SimpleItem import SimpleItem
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+from zope.interface import implementedBy
+from zope.interface import implementer
 
-from Products.mcdutils.interfaces import IMemCacheSessionDataContainer
-from Products.mcdutils.mapping import MemCacheMapping
+from .interfaces import IMemCacheSessionDataContainer
+from .mapping import MemCacheMapping
 
+
+@implementer(IMemCacheSessionDataContainer + implementedBy(SimpleItem)
+             + implementedBy(PropertyManager))
 class MemCacheSessionDataContainer(SimpleItem, PropertyManager):
     """ Implement ISDC via a memcache proxy.
     """
-    implements(IMemCacheSessionDataContainer
-             + implementedBy(SimpleItem)
-             + implementedBy(PropertyManager)
-              )
     security = ClassSecurityInfo()
 
     _v_proxy = None
     proxy_path = None
 
-    security.declarePrivate('_get_proxy')
     def _get_proxy(self):
         if self._v_proxy is None:
             if self.proxy_path is None:
@@ -35,7 +29,7 @@ class MemCacheSessionDataContainer(SimpleItem, PropertyManager):
             self._v_proxy = self.unrestrictedTraverse(self.proxy_path)
         return self._v_proxy
 
-    #proxy = property(_get_proxy,)  # XXX can't acquire inside property!
+    # proxy = property(_get_proxy,)  # can't acquire inside property!
 
     #
     #   ZMI
@@ -45,15 +39,16 @@ class MemCacheSessionDataContainer(SimpleItem, PropertyManager):
         {'id': 'proxy_path', 'type': 'string', 'mode': 'w'},
     )
 
-    manage_options = (PropertyManager.manage_options
-                    + ({'action': 'addItemsToSessionForm', 'label': 'Test'},)
-                    + SimpleItem.manage_options
-                     )
+    manage_options = (
+        PropertyManager.manage_options
+        + ({'action': 'addItemsToSessionForm', 'label': 'Test'},)
+        + SimpleItem.manage_options)
 
-    security.declarePublic('addItemsToSessionForm')
+    security.declarePublic('addItemsToSessionForm')  # NOQA: flake8: D001
     addItemsToSessionForm = PageTemplateFile('www/add_items.pt', globals())
 
-    security.declarePublic('addItemsToSession')
+    security.declarePublic('addItemsToSession')  # NOQA: flake8: D001
+
     def addItemsToSession(self):
         """ Add key value pairs from 'items' textarea to the session.
         """
@@ -77,13 +72,15 @@ class MemCacheSessionDataContainer(SimpleItem, PropertyManager):
     #
     #   ISessionDataContainer implementation
     #
-    security.declarePrivate('has_key')
+    security.declarePrivate('has_key')  # NOQA: flake8: D001
+
     def has_key(self, key):
         """ See ISessionDataContainer.
         """
         return self._get_proxy().get(key) is not None
 
-    security.declarePrivate('new_or_existing')
+    security.declarePrivate('new_or_existing')  # NOQA: flake8: D001
+
     def new_or_existing(self, key):
         """ See ISessionDataContainer.
         """
@@ -92,15 +89,17 @@ class MemCacheSessionDataContainer(SimpleItem, PropertyManager):
         if mapping is None:
             proxy = self._get_proxy()
             mapping = MemCacheMapping(key, proxy)
-            proxy._cached[key] = mapping # XXX
+            proxy._cached[key] = mapping
 
         return mapping
 
-    security.declarePrivate('get')
+    security.declarePrivate('get')  # NOQA: flake8: D001
+
     def get(self, key):
         """ See ISessionDataContainer.
         """
         return self._get_proxy().get(key)
+
 
 InitializeClass(MemCacheSessionDataContainer)
 
@@ -112,7 +111,8 @@ def addMemCacheSessionDataContainer(dispatcher, id, REQUEST):
     sdc._setId(id)
     dispatcher._setObject(id, sdc)
     REQUEST['RESPONSE'].redirect('%s/manage_workspace'
-                                    % dispatcher.absolute_url())
+                                 % dispatcher.absolute_url())
+
 
 addMemCacheSessionDataContainerForm = PageTemplateFile('www/add_mcsdc.pt',
                                                        globals())

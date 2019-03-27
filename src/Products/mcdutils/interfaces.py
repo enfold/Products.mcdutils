@@ -1,10 +1,8 @@
-""" mcdutils product interfaces
-
-$Id: interfaces.py,v 1.6 2006/06/07 05:43:09 tseaver Exp $
-"""
+""" Products.mcdutils interfaces """
 from transaction.interfaces import IDataManager
 from zope.interface import Attribute
 from zope.interface import Interface
+
 
 class ISessionDataContainer(Interface):
     """ Document the implied interface expected by Zope2's SessionDataManager.
@@ -27,9 +25,11 @@ class ISessionDataContainer(Interface):
         o If not None, the returned object must be Acquisition-wrappable.
         """
 
+
 class IMemCacheMapping(IDataManager):
     """ Combine Python's mapping protocol with transaction management.
     """
+
 
 class IMemCacheProxy(Interface):
     """ Manage client connection to a pool of memcached servers.
@@ -38,8 +38,7 @@ class IMemCacheProxy(Interface):
 
 Each item is a <host>:<port> server address.""")
 
-    client = Attribute(u'client', u"""memcache.Client instance"""
-                      )
+    client = Attribute(u'client', u"""memcache.Client instance""")
     client.setTaggedValue('read_only', True)
 
     def get(key):
@@ -82,6 +81,7 @@ Each item is a <host>:<port> server address.""")
         o Return a boolean to indicate success.
         """
 
+
 class IMemCacheSessionDataContainer(ISessionDataContainer):
     """ memcache-specific SDC, using a proxy.
     """
@@ -103,18 +103,18 @@ class IZCache(Interface):
         o If an object provides different views that would benefit from
           caching, it will set 'view_name', which should be treated as
           part of the cache key.  It defaults to the empty string.
-         
+
         o 'keywords', if passed, will be a mapping containing keys that
           distinguish this cache entry from others even though
           'ob' and 'view_name' are the same;  the value should thus be
           part of the key for the entry.  DTMLMethods use keywords
           derived from the DTML namespace.
-         
+
         o When the Cache calls 'ob.ZCacheable_getModTime',
           it should pass 'mtime_func' as an argument.  It is provided to
           allow cacheable objects to provide their own computation
           of the object's modification time.
-         
+
         o If no matching entry is found, return 'default'.
         """
 
@@ -127,8 +127,9 @@ class IZCache(Interface):
           and 'default' parameters.
         """
 
+
 class IZCacheManager(Interface):
-    """ Interface describing API for OFS.Cache.CacheManager. 
+    """ Interface describing API for OFS.Cache.CacheManager.
     """
     def ZCacheManager_getCache():
         """ Return an object implementing IZCache.

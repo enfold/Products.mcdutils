@@ -1,8 +1,6 @@
-""" Unit tests for Products.mcdutils.mapping
-
-$Id: test_mapping.py,v 1.2 2006/05/31 20:57:16 tseaver Exp $
-"""
+""" Unit tests for Products.mcdutils.mapping """
 import unittest
+
 
 class MemCacheMappingTests(unittest.TestCase):
 
@@ -20,19 +18,69 @@ class MemCacheMappingTests(unittest.TestCase):
 
     def test___setitem___triggers_register(self):
         mapping = self._makeOne('key', DummyProxy())
-        self.failIf(mapping._p_changed)
-        self.failIf(mapping._p_joined)
+        self.assertFalse(mapping._p_changed)
+        self.assertFalse(mapping._p_joined)
         mapping['abc'] = 123
-        self.failUnless(mapping._p_changed)
-        self.failUnless(mapping._p_joined)
+        self.assertTrue(mapping._p_changed)
+        self.assertTrue(mapping._p_joined)
+
+    def test__getstate__and__setstate__(self):
+        mapping = self._makeOne('key', DummyProxy())
+
+        self.assertEqual(mapping.__getstate__(), {})
+        mapping.__setstate__({'foo': 'bar'})
+        self.assertEqual(mapping.__getstate__(), {'foo': 'bar'})
+
+    def test_getContainerKey(self):
+        mapping = self._makeOne('key', DummyProxy())
+
+        self.assertEqual(mapping.getContainerKey(), 'key')
+
+    def test_clean(self):
+        proxy = DummyProxy()
+        proxy._set('key', 'myvalue')
+        mapping = self._makeOne('key', proxy)
+
+        self.assertIn('key', proxy._cached)
+        mapping._clean()
+        self.assertNotIn('key', proxy._cached)
+
+        # Cleaning again won't throw errors
+        self.assertIsNone(mapping._clean())
+
+    def test_abort(self):
+        proxy = DummyProxy()
+        proxy._set('key', 'myvalue')
+        mapping = self._makeOne('key', proxy)
+
+        self.assertIn('key', proxy._cached)
+        mapping.abort(None)
+        self.assertNotIn('key', proxy._cached)
+
+    def test_sortKey(self):
+        mapping = self._makeOne('key', DummyProxy())
+
+        self.assertEqual(mapping.sortKey(), 'MemCacheMapping: key')
+
 
 class DummyClient:
     def _get_server(self, key):
         return self, key
 
+
 class DummyProxy:
+
+    def __init__(self):
+        self._cached = {}
+
     def _set(self, key, value):
-        pass
+        self._cached[key] = value
+
+    def _clean(self, key):
+        try:
+            del self._cached[key]
+        except KeyError:
+            pass
 
     client = DummyClient()
 
@@ -41,6 +89,3 @@ def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(MemCacheMappingTests))
     return suite
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')

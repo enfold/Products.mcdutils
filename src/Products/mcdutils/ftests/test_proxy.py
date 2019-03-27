@@ -1,7 +1,6 @@
-""" Functional tests for Products.mcdutils.proxy
-"""
-
+""" Functional tests for Products.mcdutils.proxy """
 import unittest
+
 
 class MemCacheSDCFuncTests(unittest.TestCase):
 
@@ -19,12 +18,12 @@ class MemCacheSDCFuncTests(unittest.TestCase):
 
         sdc = self._makeOne()
         mapping = sdc.new_or_existing('foobar')
-        self.failUnless(isinstance(mapping, MemCacheMapping))
-        self.failIf(mapping._p_changed)
-        self.failIf(mapping._p_joined)
+        self.assertTrue(isinstance(mapping, MemCacheMapping))
+        self.assertFalse(mapping._p_changed)
+        self.assertFalse(mapping._p_joined)
         mapping['abc'] = 1345
-        self.failUnless(mapping._p_changed)
-        self.failUnless(mapping._p_joined)
+        self.assertTrue(mapping._p_changed)
+        self.assertTrue(mapping._p_joined)
         import transaction
         transaction.commit()
 
@@ -34,12 +33,12 @@ class MemCacheSDCFuncTests(unittest.TestCase):
         sdc = self._makeOne()
         sdc._get_proxy().servers = ('localhost:11211',)
         mapping = sdc.new_or_existing('foobar')
-        self.failUnless(isinstance(mapping, MemCacheMapping))
-        self.failIf(mapping._p_changed)
-        self.failUnless(mapping._p_joined)
+        self.assertTrue(isinstance(mapping, MemCacheMapping))
+        self.assertFalse(mapping._p_changed)
+        self.assertTrue(mapping._p_joined)
         mapping['abc'] = 1345
-        self.failUnless(mapping._p_changed)
-        self.failUnless(mapping._p_joined)
+        self.assertTrue(mapping._p_changed)
+        self.assertTrue(mapping._p_joined)
         import transaction
         transaction.commit()
 
@@ -54,10 +53,8 @@ class MemCacheSDCFuncTests(unittest.TestCase):
         self.assertRaises(MemCacheError, transaction.commit)
         transaction.abort()
 
+
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(MemCacheSDCFuncTests))
     return suite
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')

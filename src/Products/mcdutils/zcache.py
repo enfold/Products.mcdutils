@@ -1,25 +1,19 @@
-""" RAMCacheManager workalike using memcache
-
-$Id: zcache.py,v 1.1 2006/06/07 05:43:09 tseaver Exp $
-"""
+""" RAMCacheManager workalike using memcache """
+from AccessControl.class_init import InitializeClass
 from AccessControl.SecurityInfo import ClassSecurityInfo
-from Globals import InitializeClass
 from OFS.Cache import CacheManager
 from OFS.PropertyManager import PropertyManager
 from OFS.SimpleItem import SimpleItem
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from zope.interface import implementedBy
-from zope.interface import implements
+from zope.interface import implementer
 
-from Products.mcdutils.interfaces import IZCache
-from Products.mcdutils.interfaces import IZCacheManager
+from .interfaces import IZCache
+from .interfaces import IZCacheManager
 
-def aggregateKey(ob,
-                 view_name='',
-                 request=None,
-                 request_names=(),
-                 local_keys=None,
-                ):
+
+def aggregateKey(ob, view_name='', request=None, request_names=(),
+                 local_keys=None):
     """ Return a key to be used when retrieving or inserting a cache entry.
 
     o 'ob' is the object for whom the key is desired.
@@ -47,18 +41,15 @@ def aggregateKey(ob,
 
     for key, val in local_keys.items():
         local_index.append('%s:%s' % (str(key), str(val)))
-    local_index.sort()
 
-    return '|'.join((path,
-                     str(view_name),
-                     ','.join(request_index),
-                     ','.join(local_index),
-                    ))
+    return '|'.join((path, str(view_name), ','.join(request_index),
+                     ','.join(sorted(local_index))))
 
+
+@implementer(IZCache)
 class MemCacheZCache(object):
     """ Implement ISDC via a memcache proxy.
     """
-    implements(IZCache)
     security = ClassSecurityInfo()
     security.declareObjectPrivate()
 
@@ -78,13 +69,8 @@ class MemCacheZCache(object):
             proxy.remove(key)
         proxy.remove(path)
 
-    def ZCache_get(self,
-                   ob,
-                   view_name='',
-                   keywords=None,
-                   mtime_func=None,
-                   default=None,
-                  ):
+    def ZCache_get(self, ob, view_name='', keywords=None, mtime_func=None,
+                   default=None):
         """ See IZCache.
         """
         key = self._getKey(ob, view_name, keywords)
@@ -96,13 +82,8 @@ class MemCacheZCache(object):
 
         return value
 
-    def ZCache_set(self,
-                   ob,
-                   data,
-                   view_name='',
-                   keywords=None,
-                   mtime_func=None,
-                  ):
+    def ZCache_set(self, ob, data, view_name='', keywords=None,
+                   mtime_func=None):
         """ See IZCache.
         """
         path = '/'.join(ob.getPhysicalPath())
@@ -126,16 +107,15 @@ class MemCacheZCache(object):
 
         return aggregateKey(ob, view_name, request, rnames, keywords)
 
+
 InitializeClass(MemCacheZCache)
 
+
+@implementer(IZCacheManager + implementedBy(CacheManager)
+             + implementedBy(SimpleItem) + implementedBy(PropertyManager))
 class MemCacheZCacheManager(CacheManager, SimpleItem, PropertyManager):
     """ Implement ISDC via a memcache proxy.
     """
-    implements(IZCacheManager
-             + implementedBy(CacheManager)
-             + implementedBy(SimpleItem)
-             + implementedBy(PropertyManager)
-              )
     security = ClassSecurityInfo()
 
     _v_proxy = None
@@ -152,11 +132,9 @@ class MemCacheZCacheManager(CacheManager, SimpleItem, PropertyManager):
     )
 
     manage_options = (PropertyManager.manage_options
-                    + CacheManager.manage_options
-                    + SimpleItem.manage_options
-                     )
+                      + CacheManager.manage_options
+                      + SimpleItem.manage_options)
 
-    security.declarePrivate('_get_proxy')
     def _get_proxy(self):
         if self._v_proxy is None:
             if self.proxy_path is None:
@@ -173,6 +151,7 @@ class MemCacheZCacheManager(CacheManager, SimpleItem, PropertyManager):
         names.sort()
         return MemCacheZCache(self._get_proxy(), tuple(names))
 
+
 InitializeClass(MemCacheZCacheManager)
 
 
@@ -183,6 +162,7 @@ def addMemCacheZCacheManager(dispatcher, id, REQUEST):
     zcm._setId(id)
     dispatcher._setObject(id, zcm)
     REQUEST['RESPONSE'].redirect('%s/manage_workspace'
-                                    % dispatcher.absolute_url())
+                                 % dispatcher.absolute_url())
+
 
 addMemCacheZCacheManagerForm = PageTemplateFile('www/add_mczcm.pt', globals())
