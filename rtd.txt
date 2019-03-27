@@ -1,2 +1,3 @@
 repoze.sphinx.autointerface
+Zope2>=4.0b1
 Products.mcdutils
