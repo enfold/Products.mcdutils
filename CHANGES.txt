@@ -15,6 +15,14 @@ Change log
 
 - full flake8 compliance
 
+Possible breaking change
+~~~~~~~~~~~~~~~~~~~~~~~~
+The objects returned by Zope's session data manager are expected to support
+Acquisition. Zope's session data manager uses it to insert itself into the
+object's acquisition chain. However, under Python 3 Acquisition can no
+longr be supported by the session data objects. This may break expectations
+for code consuming the session data objects from this package.
+
 
 0.2b3 (2011-11-21)
 ------------------

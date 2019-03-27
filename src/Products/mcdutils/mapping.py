@@ -30,6 +30,17 @@ class MemCacheMapping(PersistentMapping):
     __guarded_delitem__ = PersistentMapping.__delitem__
     delete = PersistentMapping.__delitem__
 
+    def __of__(self, other):
+        # Behavior change from prior versions due to issues in Python 3:
+        # This class used to subclass from Acquisition.Explicit as well,
+        # but under Python 3 that causes metaclass conflicts since
+        # PersistentMapping's metaclass is abc.ABCMeta and
+        # Acquisition.Explicit has ExtensionClass as metaclass.
+        # Nasty workaround: Stub out ``__of__`` as the session data manager
+        # still expects us to support ``__of__``, but this object does
+        # _not_ support Acquisition anymore.
+        return self
+
     def __getstate__(self):
         return self.data
 
