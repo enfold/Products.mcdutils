@@ -1,8 +1,8 @@
 .. image:: https://api.travis-ci.org/dataflake/Products.mcdutils.svg?branch=master
    :target: https://travis-ci.org/dataflake/Products.mcdutils
 
-.. image:: https://readthedocs.org/projects/productsmcdutils/badge/?version=latest
-   :target: https://productsmcdutils.readthedocs.io
+.. image:: https://readthedocs.org/projects/mcdutils/badge/?version=latest
+   :target: https://mcdutils.readthedocs.io
    :alt: Documentation Status
 
 .. image:: https://img.shields.io/pypi/v/Products.mcdutils.svg
@@ -31,7 +31,7 @@ semantics are not a bad match for typical session usage.
 Documentation
 =============
 Documentation is available at
-https://productsmcdutils.readthedocs.io/
+https://mcdutils.readthedocs.io/
 
 
 Bug tracker
