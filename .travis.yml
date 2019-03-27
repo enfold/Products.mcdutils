@@ -24,13 +24,6 @@ install:
 script:
     - travis_retry tox
 
-after_success:
-    - coverage combine
-    - coveralls
-
-notifications:
-    email: mh@gocept.com
-
 cache:
   pip: true
   directories:
