@@ -2,7 +2,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 
-readme = open('README.md').read()
+readme = open('README.rst').read()
 history = open('CHANGES.txt').read()
 long_description = readme + '\n\n' + history
 
