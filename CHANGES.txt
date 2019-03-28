@@ -15,6 +15,10 @@ Change log
 
 - full ``flake8`` compliance
 
+- add ability to set a title for a MemcacheProxy
+
+- add ability to set a title for a MemcacheSessionDataContainer
+
 Possible breaking change
 ~~~~~~~~~~~~~~~~~~~~~~~~
 The objects returned by Zope's session data manager are expected to support
