@@ -1,4 +1,6 @@
 """ Memcache proxy """
+import memcache
+
 from AccessControl.class_init import InitializeClass
 from AccessControl.SecurityInfo import ClassSecurityInfo
 from OFS.PropertyManager import PropertyManager
@@ -7,7 +9,6 @@ from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from zope.interface import implementedBy
 from zope.interface import implementer
 
-from . import memcache
 from .interfaces import IMemCacheProxy
 from .mapping import MemCacheMapping
 

@@ -1,4 +1,6 @@
 """ Products.mcdutils session data container """
+import six
+
 from AccessControl.class_init import InitializeClass
 from AccessControl.SecurityInfo import ClassSecurityInfo
 from OFS.PropertyManager import PropertyManager
@@ -65,7 +67,7 @@ class MemCacheSessionDataContainer(SimpleItem, PropertyManager):
         count = len(items)
 
         for line in items:
-            k, v = line.split(' ', 1)
+            k, v = line.split(b' ', 1)
             k = k.strip()
             v = v.strip()
             session[k] = v
@@ -82,13 +84,14 @@ class MemCacheSessionDataContainer(SimpleItem, PropertyManager):
     def has_key(self, key):
         """ See ISessionDataContainer.
         """
-        return self._get_proxy().get(key) is not None
+        return self._get_proxy().get(self._safe_key(key)) is not None
 
     security.declarePrivate('new_or_existing')  # NOQA: flake8: D001
 
     def new_or_existing(self, key):
         """ See ISessionDataContainer.
         """
+        key = self._safe_key(key)
         mapping = self.get(key)
 
         if mapping is None:
@@ -103,7 +106,13 @@ class MemCacheSessionDataContainer(SimpleItem, PropertyManager):
     def get(self, key):
         """ See ISessionDataContainer.
         """
-        return self._get_proxy().get(key)
+        return self._get_proxy().get(self._safe_key(key))
+
+    def _safe_key(self, key):
+        """ Helper to ensure the key is always a binary string """
+        if isinstance(key, six.text_type):
+            key = key.encode('UTF-8')
+        return key
 
 
 InitializeClass(MemCacheSessionDataContainer)

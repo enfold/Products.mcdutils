@@ -5,6 +5,10 @@ Change log
 ----------------
 - Python 3 compatibility
 
+- switch to the ``python-memcached`` library and remove the old ``memcache``
+  library module inside this package, which is actually a really old version
+  of ``python-memcached``.
+
 Possible breaking change
 ~~~~~~~~~~~~~~~~~~~~~~~~
 The objects returned by Zope's session data manager are implicitly expected

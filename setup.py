@@ -45,6 +45,7 @@ setup(name='Products.mcdutils',
       install_requires=[
         'setuptools',
         'six',
+        'python-memcached',
         'Zope2',
         ],
       extras_require={
