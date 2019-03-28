@@ -1,6 +1,10 @@
 Change log
 ==========
 
+2.1 (unreleased)
+----------------
+
+
 2.0 (2019-03-28)
 ----------------
 - make sure ``zcache.aggregateKey`` does not create unsuitable MemCache keys
