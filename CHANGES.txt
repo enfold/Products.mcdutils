@@ -1,11 +1,24 @@
 Change log
 ==========
 
-1.0 (unreleased)
+2.0 (unreleased)
+----------------
+- Python 3 compatibility
+
+Possible breaking change
+~~~~~~~~~~~~~~~~~~~~~~~~
+The objects returned by Zope's session data manager are implicitly expected
+to support Acquisition. Zope's session data manager uses it to insert itself
+into the object's acquisition chain. However, under Python 3 Acquisition can
+no longer be supported by the session data objects due to a metaclass conflict
+between the classes ``permisstence.mapping.PersistentMapping`` and
+``Acquisition.Explicit``. This may break expectations for code consuming the
+session data objects from this package.
+
+
+1.0 (2019-03-28)
 ----------------
 - Zope 4 compatibility
-
-- Python 3 compatibility
 
 - documentation using Sphinx
 
@@ -18,14 +31,6 @@ Change log
 - add ability to set a title for a MemcacheProxy
 
 - add ability to set a title for a MemcacheSessionDataContainer
-
-Possible breaking change
-~~~~~~~~~~~~~~~~~~~~~~~~
-The objects returned by Zope's session data manager are expected to support
-Acquisition. Zope's session data manager uses it to insert itself into the
-object's acquisition chain. However, under Python 3 Acquisition can no
-longr be supported by the session data objects. This may break expectations
-for code consuming the session data objects from this package.
 
 
 0.2b3 (2011-11-21)
