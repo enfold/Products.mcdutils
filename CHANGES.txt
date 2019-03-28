@@ -3,6 +3,8 @@ Change log
 
 2.0 (unreleased)
 ----------------
+- add ability to set a title for a MemCacheZCacheManager
+
 - Python 3 compatibility
 
 - switch to the ``python-memcached`` library and remove the old ``memcache``
