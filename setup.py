@@ -7,9 +7,9 @@ history = open('CHANGES.txt').read()
 long_description = readme + '\n\n' + history
 
 setup(name='Products.mcdutils',
-      version='0.2.dev0',
-      description=('A Zope2 product which provides facilities for'
-                   'storing sessions in memcached.'),
+      version='2.0.dev0',
+      description=('A Zope2 product with memcached-backed ZCache and '
+                   'Zope session implementations.'),
       long_description=long_description,
       classifiers=[
         'Development Status :: 5 - Production/Stable',
