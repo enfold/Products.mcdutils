@@ -103,6 +103,13 @@ class MemCacheProxyTests(unittest.TestCase):
         self.assertTrue(proxy.set(KEY, proxy.create(KEY)))
         self.assertEqual(proxy.get(KEY), {})
 
+        # This should also work when setting values that are
+        # not MemCacheMapping instances
+        KEY2 = b'key2'
+        self.assertIsNone(proxy.get(KEY2))
+        self.assertTrue(proxy.set(KEY2, {'foo': 'bar'}))
+        self.assertEqual(proxy.get(KEY2), {'foo': 'bar'})
+
     def test_get_multi(self):
         proxy = self._makeOneWithMemcache('proxy')
 

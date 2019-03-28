@@ -3,6 +3,8 @@ Change log
 
 2.0 (unreleased)
 ----------------
+- allow storing values that don't conform to ``IMemCacheMapping``
+
 - add ability to set a title for a MemCacheZCacheManager
 
 - Python 3 compatibility
