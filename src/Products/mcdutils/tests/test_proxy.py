@@ -5,7 +5,7 @@ import unittest
 class MemCacheProxyTests(unittest.TestCase):
 
     def _getTargetClass(self):
-        from Products.mcdutils.proxy import MemCacheProxy
+        from ..proxy import MemCacheProxy
         return MemCacheProxy
 
     def _makeOne(self, *args, **kw):
@@ -13,7 +13,7 @@ class MemCacheProxyTests(unittest.TestCase):
 
     def test_conforms_to_IMemCacheProxy(self):
         from zope.interface.verify import verifyClass
-        from Products.mcdutils.interfaces import IMemCacheProxy
+        from ..interfaces import IMemCacheProxy
         verifyClass(IMemCacheProxy, self._getTargetClass())
 
     def test__cached(self):

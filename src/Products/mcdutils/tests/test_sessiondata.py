@@ -36,12 +36,12 @@ class MemCacheSessionDataTests(unittest.TestCase):
 
     def test_conforms_to_ISessionDataContainer(self):
         from zope.interface.verify import verifyClass
-        from Products.mcdutils.interfaces import ISessionDataContainer
+        from ..interfaces import ISessionDataContainer
         verifyClass(ISessionDataContainer, self._getTargetClass())
 
     def test_conforms_to_IMemCacheSessionDataContainer(self):
         from zope.interface.verify import verifyClass
-        from Products.mcdutils.interfaces import IMemCacheSessionDataContainer
+        from ..interfaces import IMemCacheSessionDataContainer
         verifyClass(IMemCacheSessionDataContainer, self._getTargetClass())
 
     def test_empty(self):

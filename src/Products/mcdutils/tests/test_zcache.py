@@ -5,17 +5,17 @@ import unittest
 class TestsOf_aggregateKey(unittest.TestCase):
 
     def test_defaults(self):
-        from Products.mcdutils.zcache import aggregateKey
+        from ..zcache import aggregateKey
         key = aggregateKey(DummyOb())
         self.assertEqual(key, '%s|||' % _DUMMY_PATH_STR)
 
     def test_explicit_view_name(self):
-        from Products.mcdutils.zcache import aggregateKey
+        from ..zcache import aggregateKey
         key = aggregateKey(DummyOb(), view_name='VIEW_NAME')
         self.assertEqual(key, '%s|VIEW_NAME||' % _DUMMY_PATH_STR)
 
     def test_explicit_request_names(self):
-        from Products.mcdutils.zcache import aggregateKey
+        from ..zcache import aggregateKey
         key = aggregateKey(DummyOb(),
                            request={'aaa': 'AAA',
                                     'bbb': 'BBB',
@@ -24,7 +24,7 @@ class TestsOf_aggregateKey(unittest.TestCase):
         self.assertEqual(key, '%s||aaa:AAA,ccc:CCC|' % _DUMMY_PATH_STR)
 
     def test_explicit_local_keys(self):
-        from Products.mcdutils.zcache import aggregateKey
+        from ..zcache import aggregateKey
         key = aggregateKey(DummyOb(), local_keys={'foo': 'bar', 'baz': 'bam'})
         self.assertEqual(key, '%s|||baz:bam,foo:bar' % _DUMMY_PATH_STR)
 
@@ -32,7 +32,7 @@ class TestsOf_aggregateKey(unittest.TestCase):
 class MemCacheZCacheTests(unittest.TestCase):
 
     def _getTargetClass(self):
-        from Products.mcdutils.zcache import MemCacheZCache
+        from ..zcache import MemCacheZCache
         return MemCacheZCache
 
     def _makeOne(self, proxy, request_names=(), *args, **kw):
@@ -157,7 +157,7 @@ class MemCacheZCacheTests(unittest.TestCase):
 class MemCacheZCacheManagerTests(unittest.TestCase):
 
     def _getTargetClass(self):
-        from Products.mcdutils.zcache import MemCacheZCacheManager
+        from ..zcache import MemCacheZCacheManager
         return MemCacheZCacheManager
 
     def _makeOne(self, *args, **kw):
