@@ -211,8 +211,12 @@ class DummyProxy:
 
     get = _get
 
-    def remove(self, key):
-        del self._cached[key]
+    def delete(self, key, time=0):
+        try:
+            del self._cached[key]
+            return True
+        except KeyError:
+            return False
 
 
 def test_suite():

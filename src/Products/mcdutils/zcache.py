@@ -70,8 +70,8 @@ class MemCacheZCache(object):
         if keys is None:
             return
         for key in keys:
-            proxy.remove(key)
-        proxy.remove(path)
+            proxy.delete(key)
+        proxy.delete(path)
 
     def ZCache_get(self, ob, view_name='', keywords=None, mtime_func=None,
                    default=None):

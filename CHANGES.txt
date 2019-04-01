@@ -3,6 +3,8 @@ Change log
 
 2.1 (unreleased)
 ----------------
+- fix wrong method call during cache manager record invalidation
+  (`#1 <https://github.com/dataflake/Products.mcdutils/issues/1>`_)
 
 
 2.0 (2019-03-28)
