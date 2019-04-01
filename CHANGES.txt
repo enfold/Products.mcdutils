@@ -1,6 +1,10 @@
 Change log
 ==========
 
+2.2 (unreleased)
+----------------
+
+
 2.1 (2019-03-31)
 ----------------
 - fix wrong method call during cache manager record invalidation
