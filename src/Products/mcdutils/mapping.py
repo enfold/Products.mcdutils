@@ -48,6 +48,10 @@ class MemCacheMapping(PersistentMapping):
         self.data = {}
         self.data.update(value)
 
+    def has_key(self, key):
+        """ Backwards compatibility under Python 3 """
+        return key in self.data
+
     def getContainerKey(self):
         """ Fake out (I)Transient API.
         """

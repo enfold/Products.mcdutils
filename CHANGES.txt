@@ -3,6 +3,7 @@ Change log
 
 2.2 (unreleased)
 ----------------
+- add an implementation for ``has_key`` which is gone under Python 3
 
 
 2.1 (2019-03-31)
