@@ -1,6 +1,10 @@
 Change log
 ==========
 
+2.4 (unreleased)
+----------------
+
+
 2.3 (2019-10-13)
 ----------------
 - rely on the Zope 4.x branch for Python 2 compatibility
