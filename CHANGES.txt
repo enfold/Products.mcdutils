@@ -3,6 +3,8 @@ Change log
 
 2.3 (unreleased)
 ----------------
+- rely on the Zope 4.x branch for Python 2 compatibility
+
 - update description to replace Zope2 wording with just Zope
 
 
