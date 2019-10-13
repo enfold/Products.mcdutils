@@ -3,6 +3,7 @@ build/
 develop-eggs/
 dist/
 eggs/
+lib/
 var/
 .installed.cfg
 .coverage
@@ -16,3 +17,4 @@ parts/
 coverage.xml
 default.profraw
 docs/_build/
+pyvenv.cfg
