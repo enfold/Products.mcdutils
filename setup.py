@@ -8,7 +8,7 @@ long_description = readme + '\n\n' + history
 
 setup(name='Products.mcdutils',
       version='2.3.dev0',
-      description=('A Zope2 product with memcached-backed ZCache and '
+      description=('A Zope product with memcached-backed ZCache and '
                    'Zope session implementations.'),
       long_description=long_description,
       classifiers=[

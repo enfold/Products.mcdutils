@@ -3,6 +3,7 @@ Change log
 
 2.3 (unreleased)
 ----------------
+- update description to replace Zope2 wording with just Zope
 
 
 2.2 (2019-05-21)
