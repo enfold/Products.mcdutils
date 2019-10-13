@@ -2,7 +2,7 @@ include *.txt
 include *.md
 include *.cfg
 
-recursive-include src *
+recursive-include Products *
 recursive-include docs *
 
 global-exclude *.pyc

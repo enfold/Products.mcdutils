@@ -7,6 +7,8 @@ Change log
 
 - update description to replace Zope2 wording with just Zope
 
+- reorganize source folder structure and drop the ``src`` folder
+
 
 2.2 (2019-05-21)
 ----------------
