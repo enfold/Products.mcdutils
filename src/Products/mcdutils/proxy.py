@@ -82,7 +82,7 @@ class MemCacheProxy(SimpleItem, PropertyManager):
     manage_options = (PropertyManager.manage_options
                       + SimpleItem.manage_options)
 
-    security.declarePrivate('get')  # NOQA: flake8: D001
+    security.declarePrivate('get')  # NOQA: D001
 
     def get(self, key):
         """ See IMemCacheProxy.
@@ -98,14 +98,14 @@ class MemCacheProxy(SimpleItem, PropertyManager):
 
         return mapping
 
-    security.declarePrivate('get_multi')  # NOQA: flake8: D001
+    security.declarePrivate('get_multi')  # NOQA: D001
 
     def get_multi(self, keys):
         """ See IMemCacheProxy.
         """
         return self._get_remote_multi(keys)
 
-    security.declarePrivate('set')  # NOQA: flake8: D001
+    security.declarePrivate('set')  # NOQA: D001
 
     def set(self, key, value):
         """ See IMemCacheProxy.
@@ -117,7 +117,7 @@ class MemCacheProxy(SimpleItem, PropertyManager):
             pass
         return rc
 
-    security.declarePrivate('add')  # NOQA: flake8: D001
+    security.declarePrivate('add')  # NOQA: D001
 
     def add(self, key, value):
         """ Store value (a mapping) for 'key'.
@@ -133,7 +133,7 @@ class MemCacheProxy(SimpleItem, PropertyManager):
             pass
         return rc
 
-    security.declarePrivate('replace')  # NOQA: flake8: D001
+    security.declarePrivate('replace')  # NOQA: D001
 
     def replace(self, key, value):
         """ Store value (a mapping) for 'key'.
@@ -149,7 +149,7 @@ class MemCacheProxy(SimpleItem, PropertyManager):
             pass
         return rc
 
-    security.declarePrivate('delete')  # NOQA: flake8: D001
+    security.declarePrivate('delete')  # NOQA: D001
 
     def delete(self, key, time=0):
         """ Remove the value stored in the cache under 'key'.
@@ -166,7 +166,7 @@ class MemCacheProxy(SimpleItem, PropertyManager):
             pass
         return rc
 
-    security.declarePrivate('create')  # NOQA: flake8: D001
+    security.declarePrivate('create')  # NOQA: D001
 
     def create(self, key):
         """ See IMemCacheProxy.

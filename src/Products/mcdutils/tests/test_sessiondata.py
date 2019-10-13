@@ -46,14 +46,14 @@ class MemCacheSessionDataTests(unittest.TestCase):
 
     def test_empty(self):
         sdc = self._makeOne('mcsdc')
-        self.assertFalse(sdc.has_key('foobar'))  # NOQA: flake8: W601
+        self.assertFalse(sdc.has_key('foobar'))  # NOQA: W601
         self.assertIsNone(sdc.get('foobar'))
 
     def test_invalid_proxy_raises_MemCacheError(self):
         from Products.mcdutils import MemCacheError
         sdc = self._makeOne('mcsdc', with_proxy=False)
         self.assertRaises(MemCacheError,
-                          sdc.has_key, 'foobar')  # NOQA: flake8: W601
+                          sdc.has_key, 'foobar')  # NOQA: W601
         self.assertRaises(MemCacheError, sdc.get, 'foobar')
         self.assertRaises(MemCacheError, sdc.new_or_existing, 'foobar')
 
@@ -70,7 +70,7 @@ class MemCacheSessionDataTests(unittest.TestCase):
     def test_has_key_after_new_or_existing_returns_True(self):
         sdc = self._makeOne('mcsdc')
         sdc.new_or_existing('foobar')
-        self.assertTrue(sdc.has_key('foobar'))  # NOQA: flake8: W601
+        self.assertTrue(sdc.has_key('foobar'))  # NOQA: W601
 
     def test_get_after_new_or_existing_returns_same(self):
         sdc = self._makeOne('mcsdc')

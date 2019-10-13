@@ -28,9 +28,9 @@ class MemCacheMappingTests(unittest.TestCase):
         # Added in for backwards-compatibility under Python 3
         mapping = self._makeOne('key', DummyProxy())
 
-        self.assertFalse(mapping.has_key('foo'))  # NOQA: flake8: W601
+        self.assertFalse(mapping.has_key('foo'))  # NOQA: W601
         mapping['foo'] = 'bar'
-        self.assertTrue(mapping.has_key('foo'))  # NOQA: flake8: W601
+        self.assertTrue(mapping.has_key('foo'))  # NOQA: W601
 
     def test__getstate__and__setstate__(self):
         mapping = self._makeOne('key', DummyProxy())

@@ -65,26 +65,26 @@ class MemCacheMapping(PersistentMapping):
         except KeyError:
             pass
 
-    security.declarePrivate('abort')  # NOQA: flake8: D001
+    security.declarePrivate('abort')  # NOQA: D001
 
     def abort(self, txn):
         """ See IDataManager.
         """
         self._clean()
 
-    security.declarePrivate('tpc_begin')  # NOQA: flake8: D001
+    security.declarePrivate('tpc_begin')  # NOQA: D001
 
     def tpc_begin(self, txn):
         """ See IDataManager.
         """
 
-    security.declarePrivate('commit')  # NOQA: flake8: D001
+    security.declarePrivate('commit')  # NOQA: D001
 
     def commit(self, txn):
         """ See IDataManager.
         """
 
-    security.declarePrivate('tpc_vote')  # NOQA: flake8: D001
+    security.declarePrivate('tpc_vote')  # NOQA: D001
 
     def tpc_vote(self, txn):
         """ See IDataManager.
@@ -94,7 +94,7 @@ class MemCacheMapping(PersistentMapping):
             from Products.mcdutils import MemCacheError
             raise MemCacheError("Can't reach memcache server!")
 
-    security.declarePrivate('tpc_finish')  # NOQA: flake8: D001
+    security.declarePrivate('tpc_finish')  # NOQA: D001
 
     def tpc_finish(self, txn):
         """ See IDataManager.
@@ -105,7 +105,7 @@ class MemCacheMapping(PersistentMapping):
         self._p_joined = False
         self._clean()
 
-    security.declarePrivate('tpc_abort')  # NOQA: flake8: D001
+    security.declarePrivate('tpc_abort')  # NOQA: D001
 
     def tpc_abort(self, txn):
         """ See IDataManager.
@@ -114,14 +114,14 @@ class MemCacheMapping(PersistentMapping):
         self._p_changed = 0
         self._clean()
 
-    security.declarePrivate('sortKey')  # NOQA: flake8: D001
+    security.declarePrivate('sortKey')  # NOQA: D001
 
     def sortKey(self):
         """ See IDataManager.
         """
         return 'MemCacheMapping: %s' % self._p_key
 
-    security.declarePrivate('register')  # NOQA: flake8: D001
+    security.declarePrivate('register')  # NOQA: D001
 
     def register(self, obj):
         """ See IPersistentDataManager

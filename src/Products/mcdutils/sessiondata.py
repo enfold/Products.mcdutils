@@ -51,10 +51,10 @@ class MemCacheSessionDataContainer(SimpleItem, PropertyManager):
         + ({'action': 'addItemsToSessionForm', 'label': 'Test'},)
         + SimpleItem.manage_options)
 
-    security.declarePublic('addItemsToSessionForm')  # NOQA: flake8: D001
+    security.declarePublic('addItemsToSessionForm')  # NOQA: D001
     addItemsToSessionForm = PageTemplateFile('www/add_items.pt', globals())
 
-    security.declarePublic('addItemsToSession')  # NOQA: flake8: D001
+    security.declarePublic('addItemsToSession')  # NOQA: D001
 
     def addItemsToSession(self):
         """ Add key value pairs from 'items' textarea to the session.
@@ -79,14 +79,14 @@ class MemCacheSessionDataContainer(SimpleItem, PropertyManager):
     #
     #   ISessionDataContainer implementation
     #
-    security.declarePrivate('has_key')  # NOQA: flake8: D001
+    security.declarePrivate('has_key')  # NOQA: D001
 
     def has_key(self, key):
         """ See ISessionDataContainer.
         """
         return self._get_proxy().get(self._safe_key(key)) is not None
 
-    security.declarePrivate('new_or_existing')  # NOQA: flake8: D001
+    security.declarePrivate('new_or_existing')  # NOQA: D001
 
     def new_or_existing(self, key):
         """ See ISessionDataContainer.
@@ -101,7 +101,7 @@ class MemCacheSessionDataContainer(SimpleItem, PropertyManager):
 
         return mapping
 
-    security.declarePrivate('get')  # NOQA: flake8: D001
+    security.declarePrivate('get')  # NOQA: D001
 
     def get(self, key):
         """ See ISessionDataContainer.
