@@ -4,6 +4,7 @@ develop-eggs/
 dist/
 eggs/
 lib/
+lib64
 var/
 .installed.cfg
 .coverage
