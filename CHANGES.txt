@@ -1,6 +1,10 @@
 Change log
 ==========
 
+2.5 (unreleased)
+----------------
+
+
 2.4 (2019-10-23)
 ----------------
 - attempt to hide session values that may contain passwords in ``__repr__``
