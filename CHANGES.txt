@@ -3,6 +3,8 @@ Change log
 
 2.4 (unreleased)
 ----------------
+- attempt to hide session values that may contain passwords in ``__repr__``
+  which is used when rendering the ``REQUEST`` object as string.
 
 
 2.3 (2019-10-13)

@@ -70,6 +70,22 @@ class MemCacheMappingTests(unittest.TestCase):
 
         self.assertEqual(mapping.sortKey(), 'MemCacheMapping: key')
 
+    def test_repr(self):
+        KEYS = ('__ac_password', 'passwd', 'password')
+        proxy = DummyProxy()
+        proxy._set('key', 'myvalue')
+        mapping = self._makeOne('key', proxy)
+
+        for pw_key in KEYS:
+            mapping[pw_key] = 'thisisapw'
+        mapping['normal'] = 'normalvalue'
+
+        mapping_repr = repr(mapping)
+        self.assertNotIn('thisisapw', mapping_repr)
+        for pw_key in KEYS:
+            self.assertIn("'%s': '<password obscured>'" % pw_key, mapping_repr)
+        self.assertIn("'normal': 'normalvalue'", mapping_repr)
+
 
 class DummyClient:
     def _get_server(self, key):

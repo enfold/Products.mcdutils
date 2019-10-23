@@ -48,6 +48,15 @@ class MemCacheMapping(PersistentMapping):
         self.data = {}
         self.data.update(value)
 
+    def __repr__(self):
+        # Overriding here to try and hide some password fields, like
+        # the ZPublisher HTTPRequest class tries to do.
+        new_dict = dict(self.data)
+        for key in new_dict.keys():
+            if 'passw' in key.lower():
+                new_dict[key] = '<password obscured>'
+        return repr(new_dict)
+
     def has_key(self, key):
         """ Backwards compatibility under Python 3 """
         return key in self.data
