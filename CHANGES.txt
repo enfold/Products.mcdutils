@@ -1,7 +1,7 @@
 Change log
 ==========
 
-2.5 (unreleased)
+2.5 (2019-11-13)
 ----------------
 - implement transaction savepoint support
  (`#3 <https://github.com/dataflake/Products.mcdutils/issues/3>`_)
