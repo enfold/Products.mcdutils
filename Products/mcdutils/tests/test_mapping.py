@@ -2,6 +2,27 @@
 import unittest
 
 
+class MemCacheMappingSavepointTests(unittest.TestCase):
+
+    def _getTargetClass(self):
+        from Products.mcdutils.mapping import MemCacheMappingSavepoint
+        return MemCacheMappingSavepoint
+
+    def _makeOne(self, *args, **kw):
+        return self._getTargetClass()()
+
+    def test_conforms_to_IDataManagerSavepoint(self):
+        from zope.interface.verify import verifyClass
+        from transaction.interfaces import IDataManagerSavepoint
+        verifyClass(IDataManagerSavepoint, self._getTargetClass())
+
+    def test_rollback(self):
+        # This doesn't really do anything. Just verifying the
+        # method is there and doesn't blow up when called.
+        sp = self._makeOne()
+        self.assertFalse(sp.rollback())
+
+
 class MemCacheMappingTests(unittest.TestCase):
 
     def _getTargetClass(self):
@@ -11,10 +32,10 @@ class MemCacheMappingTests(unittest.TestCase):
     def _makeOne(self, *args, **kw):
         return self._getTargetClass()(*args, **kw)
 
-    def test_conforms_to_IDataManager(self):
+    def test_conforms_to_ISavepointDataManager(self):
         from zope.interface.verify import verifyClass
-        from transaction.interfaces import IDataManager
-        verifyClass(IDataManager, self._getTargetClass())
+        from transaction.interfaces import ISavepointDataManager
+        verifyClass(ISavepointDataManager, self._getTargetClass())
 
     def test___setitem___triggers_register(self):
         mapping = self._makeOne('key', DummyProxy())
@@ -65,6 +86,13 @@ class MemCacheMappingTests(unittest.TestCase):
         mapping.abort(None)
         self.assertNotIn('key', proxy._cached)
 
+    def test_savepoint(self):
+        from Products.mcdutils.mapping import MemCacheMappingSavepoint
+        mapping = self._makeOne('key', DummyProxy())
+
+        sp = mapping.savepoint()
+        self.assertIsInstance(sp, MemCacheMappingSavepoint)
+
     def test_sortKey(self):
         mapping = self._makeOne('key', DummyProxy())
 
@@ -112,4 +140,5 @@ class DummyProxy:
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(MemCacheMappingTests))
+    suite.addTest(unittest.makeSuite(MemCacheMappingSavepointTests))
     return suite

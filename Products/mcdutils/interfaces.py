@@ -1,5 +1,5 @@
 """ Products.mcdutils interfaces """
-from transaction.interfaces import IDataManager
+from transaction.interfaces import ISavepointDataManager
 from zope.interface import Attribute
 from zope.interface import Interface
 
@@ -26,7 +26,7 @@ class ISessionDataContainer(Interface):
         """
 
 
-class IMemCacheMapping(IDataManager):
+class IMemCacheMapping(ISavepointDataManager):
     """ Combine Python's mapping protocol with transaction management.
     """
 

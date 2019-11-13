@@ -3,12 +3,13 @@ import transaction
 from AccessControl.class_init import InitializeClass
 from AccessControl.SecurityInfo import ClassSecurityInfo
 from persistent.mapping import PersistentMapping
-from transaction.interfaces import IDataManager
+from transaction.interfaces import IDataManagerSavepoint
+from transaction.interfaces import ISavepointDataManager
 from zope.interface import implementedBy
 from zope.interface import implementer
 
 
-@implementer(IDataManager + implementedBy(PersistentMapping))
+@implementer(ISavepointDataManager + implementedBy(PersistentMapping))
 class MemCacheMapping(PersistentMapping):
     """ memcache-based mapping which manages its own transactional semantics
     """
@@ -142,5 +143,26 @@ class MemCacheMapping(PersistentMapping):
             transaction.get().join(self)
             self._p_joined = True
 
+    security.declarePrivate('savepoint')  # NOQA: D001
+
+    def savepoint(self):
+        """ See ITransaction
+        """
+        return MemCacheMappingSavepoint()
+
 
 InitializeClass(MemCacheMapping)
+
+
+@implementer(IDataManagerSavepoint)
+class MemCacheMappingSavepoint(object):
+    """ A simple savepoint object
+    """
+
+    def rollback(self):
+        """ Roll back a savepoint
+
+        Memcache and the python-memcached library don't have the concept
+        of a rollback, so there is nothing useful to do here.
+        """
+        pass
