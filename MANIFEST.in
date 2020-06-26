@@ -1,11 +1,24 @@
 include *.txt
-include *.md
-include *.cfg
-exclude pyvenv.cfg
-exclude .installed.cfg
+include *.rst
+include buildout.cfg
+include zope2.cfg
 
-recursive-include Products *
-recursive-include docs *
+include *.yml
+exclude *.yml
 
-global-exclude *.pyc
-global-exclude *.pyo
+include .gitignore
+exclude .gitignore
+
+include bootstrap.py
+exclude bootstrap.py
+
+exclude MANIFEST.in
+
+recursive-include docs *.png
+recursive-include docs *.py
+recursive-include docs *.rst
+recursive-include docs Makefile
+
+recursive-include Products *.gif
+recursive-include Products *.pt
+recursive-include Products *.py

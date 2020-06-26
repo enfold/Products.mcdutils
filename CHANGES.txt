@@ -3,6 +3,7 @@ Change log
 
 2.6 (unreleased)
 ----------------
+- packaging cleanup and test fixing due to shifting dependencies
 
 
 2.5 (2019-11-13)
