@@ -1,5 +1,6 @@
 include *.txt
 include *.rst
+include *.py
 include buildout.cfg
 include zope2.cfg
 
@@ -8,9 +9,6 @@ exclude *.yml
 
 include .gitignore
 exclude .gitignore
-
-include bootstrap.py
-exclude bootstrap.py
 
 exclude MANIFEST.in
 
