@@ -5,15 +5,15 @@ import unittest
 class MemCacheMappingSavepointTests(unittest.TestCase):
 
     def _getTargetClass(self):
-        from Products.mcdutils.mapping import MemCacheMappingSavepoint
+        from ..mapping import MemCacheMappingSavepoint
         return MemCacheMappingSavepoint
 
     def _makeOne(self, *args, **kw):
         return self._getTargetClass()()
 
     def test_conforms_to_IDataManagerSavepoint(self):
-        from zope.interface.verify import verifyClass
         from transaction.interfaces import IDataManagerSavepoint
+        from zope.interface.verify import verifyClass
         verifyClass(IDataManagerSavepoint, self._getTargetClass())
 
     def test_rollback(self):
@@ -33,8 +33,8 @@ class MemCacheMappingTests(unittest.TestCase):
         return self._getTargetClass()(*args, **kw)
 
     def test_conforms_to_ISavepointDataManager(self):
-        from zope.interface.verify import verifyClass
         from transaction.interfaces import ISavepointDataManager
+        from zope.interface.verify import verifyClass
         verifyClass(ISavepointDataManager, self._getTargetClass())
 
     def test___setitem___triggers_register(self):

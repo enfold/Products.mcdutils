@@ -11,24 +11,24 @@ class MemCacheError(IOError):
 def initialize(context):
 
     from .proxy import MemCacheProxy
-    from .proxy import addMemCacheProxyForm
     from .proxy import addMemCacheProxy
+    from .proxy import addMemCacheProxyForm
     context.registerClass(MemCacheProxy,
                           constructors=(addMemCacheProxyForm,
                                         addMemCacheProxy),
                           icon='www/proxy.gif')
 
     from .sessiondata import MemCacheSessionDataContainer
-    from .sessiondata import addMemCacheSessionDataContainerForm
     from .sessiondata import addMemCacheSessionDataContainer
+    from .sessiondata import addMemCacheSessionDataContainerForm
     context.registerClass(MemCacheSessionDataContainer,
                           constructors=(addMemCacheSessionDataContainerForm,
                                         addMemCacheSessionDataContainer),
                           icon='www/sdc.gif')
 
     from .zcache import MemCacheZCacheManager
-    from .zcache import addMemCacheZCacheManagerForm
     from .zcache import addMemCacheZCacheManager
+    from .zcache import addMemCacheZCacheManagerForm
     context.registerClass(MemCacheZCacheManager,
                           constructors=(addMemCacheZCacheManagerForm,
                                         addMemCacheZCacheManager),

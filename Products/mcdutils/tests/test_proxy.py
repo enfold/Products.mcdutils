@@ -40,6 +40,7 @@ class MemCacheProxyTests(unittest.TestCase):
 
     def test_conforms_to_IMemCacheProxy(self):
         from zope.interface.verify import verifyClass
+
         from ..interfaces import IMemCacheProxy
         verifyClass(IMemCacheProxy, self._getTargetClass())
 

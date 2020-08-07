@@ -41,7 +41,8 @@ class MemCacheZCacheTests(unittest.TestCase):
 
     def test_conforms_to_IZCache(self):
         from zope.interface.verify import verifyClass
-        from Products.mcdutils.interfaces import IZCache
+
+        from ..interfaces import IZCache
 
         verifyClass(IZCache, self._getTargetClass())
 
@@ -165,7 +166,8 @@ class MemCacheZCacheManagerTests(unittest.TestCase):
 
     def test_conforms_to_IZCacheManager(self):
         from zope.interface.verify import verifyClass
-        from Products.mcdutils.interfaces import IZCacheManager
+
+        from ..interfaces import IZCacheManager
 
         verifyClass(IZCacheManager, self._getTargetClass())
 

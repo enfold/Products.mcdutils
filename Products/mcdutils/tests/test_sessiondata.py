@@ -23,8 +23,7 @@ class DummyProxy:
 class MemCacheSessionDataTests(unittest.TestCase):
 
     def _getTargetClass(self):
-        from Products.mcdutils.sessiondata \
-            import MemCacheSessionDataContainer
+        from ..sessiondata import MemCacheSessionDataContainer
         return MemCacheSessionDataContainer
 
     def _makeOne(self, id, title='', with_proxy=True):
@@ -36,11 +35,13 @@ class MemCacheSessionDataTests(unittest.TestCase):
 
     def test_conforms_to_ISessionDataContainer(self):
         from zope.interface.verify import verifyClass
+
         from ..interfaces import ISessionDataContainer
         verifyClass(ISessionDataContainer, self._getTargetClass())
 
     def test_conforms_to_IMemCacheSessionDataContainer(self):
         from zope.interface.verify import verifyClass
+
         from ..interfaces import IMemCacheSessionDataContainer
         verifyClass(IMemCacheSessionDataContainer, self._getTargetClass())
 
@@ -50,7 +51,7 @@ class MemCacheSessionDataTests(unittest.TestCase):
         self.assertIsNone(sdc.get('foobar'))
 
     def test_invalid_proxy_raises_MemCacheError(self):
-        from Products.mcdutils import MemCacheError
+        from .. import MemCacheError
         sdc = self._makeOne('mcsdc', with_proxy=False)
         self.assertRaises(MemCacheError,
                           sdc.has_key, 'foobar')  # NOQA: W601

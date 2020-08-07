@@ -5,8 +5,8 @@ import unittest
 class MemCacheSDCFuncTests(unittest.TestCase):
 
     def _makeOne(self):
-        from Products.mcdutils.sessiondata import MemCacheSessionDataContainer
-        from Products.mcdutils.proxy import MemCacheProxy
+        from ..proxy import MemCacheProxy
+        from ..sessiondata import MemCacheSessionDataContainer
         sdc = MemCacheSessionDataContainer()
         sdc.mcproxy = MemCacheProxy()
         sdc.proxy_path = 'mcproxy'
@@ -14,7 +14,7 @@ class MemCacheSDCFuncTests(unittest.TestCase):
         return sdc
 
     def test_writing_to_mapping_no_memcache(self):
-        from Products.mcdutils.mapping import MemCacheMapping
+        from ..mapping import MemCacheMapping
 
         sdc = self._makeOne()
         mapping = sdc.new_or_existing('foobar')
@@ -28,7 +28,7 @@ class MemCacheSDCFuncTests(unittest.TestCase):
         transaction.commit()
 
     def test_writing_to_mapping_with_memcache(self):
-        from Products.mcdutils.mapping import MemCacheMapping
+        from ..mapping import MemCacheMapping
 
         sdc = self._makeOne()
         sdc._get_proxy().servers = ('localhost:11211',)
@@ -43,7 +43,7 @@ class MemCacheSDCFuncTests(unittest.TestCase):
         transaction.commit()
 
     def test_writing_to_mapping_with_invalid_memcache_raises(self):
-        from Products.mcdutils import MemCacheError
+        from .. import MemCacheError
 
         sdc = self._makeOne()
         sdc._get_proxy().servers = ('nonesuch:999999',)
