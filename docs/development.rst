@@ -14,10 +14,11 @@ Setting up a development sandbox
 Once you've obtained a source checkout, you need to run the buildout::
 
   $ cd Products.mcdutils
-  $ python2.7 bootstrap.py
+  $ python3 -m venv .
+  $ bin/pip install -U pip setuptools zc.buildout tox
   $ bin/buildout
 
-The ``bootstrap.py`` step is only needed after the initial checkout because
+The ``pip`` step is only needed after the initial checkout because
 it produces the script ``bin/buildout``.
 
 The buildout will create the scripts that are used for code testing
@@ -39,13 +40,17 @@ switch::
 
   $ bin/tox -l
   py27
-  lint-py27
-  coverage-report
+  py35
+  py36
+  py37
+  py38
+  lint
+  coverage
 
 ``py27`` represents the unit tests, run under Python 2.7. You can run each
 of these by themselves with the ``-e`` switch::
 
-  $ bin/tox -e coverage-report
+  $ bin/tox -e py37
 
 Coverage report output is as text to the terminal, and as HTML files under
 ``parts/coverage/``.
