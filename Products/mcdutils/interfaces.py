@@ -5,7 +5,7 @@ from zope.interface import Interface
 
 
 class ISessionDataContainer(Interface):
-    """ Document the implied interface expected by Zope2's SessionDataManager.
+    """ Document the implied interface expected by Zope's SessionDataManager.
     """
     def has_key(key):
         """ Return True if the container has the key, else False.

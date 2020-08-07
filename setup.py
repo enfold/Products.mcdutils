@@ -7,15 +7,13 @@ history = open('CHANGES.txt').read()
 long_description = readme + '\n\n' + history
 
 setup(name='Products.mcdutils',
-      version='2.6.dev0',
+      version='3.0.dev0',
       description=('A Zope product with memcached-backed ZCache and '
                    'Zope session implementations.'),
       long_description=long_description,
       classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Framework :: Zope',
-        'Framework :: Zope2',
-        'Framework :: Zope :: 2',
         'Framework :: Zope :: 4',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Zope Public License',
@@ -51,7 +49,7 @@ setup(name='Products.mcdutils',
         'setuptools',
         'six',
         'python-memcached',
-        'Zope2',
+        'Zope >4',
         ],
       extras_require={
         'docs': ['repoze.sphinx.autointerface', 'Sphinx'],

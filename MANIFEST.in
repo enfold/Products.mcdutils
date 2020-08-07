@@ -2,7 +2,6 @@ include *.txt
 include *.rst
 include *.py
 include buildout.cfg
-include zope2.cfg
 
 include *.yml
 exclude *.yml
