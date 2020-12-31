@@ -8,9 +8,12 @@
 
   <code tal:content="updated"></code>
 
-  <form class="mt-4 zmi-edit zmi-text zmi-ace-brief" action="addItemsToSessionForm" method="POST">
+  <form class="mt-4 zmi-edit zmi-text zmi-ace-brief" 
+    action="addItemsToSessionForm" method="POST">
     <legend>Add Items to Session </legend>
-    <textarea id="content" data-contenttype="text" class="form-control zmi-zpt zmi-code col-sm-12" name="items:lines" rows="5" cols="65"></textarea><br />
+    <textarea id="content" data-contenttype="text" 
+      class="form-control zmi-zpt zmi-code col-sm-12" 
+      name="items:lines"></textarea>
     <div class="zmi-controls">
       <input class="btn btn-primary" type="submit" value="Add" />
     <div>
