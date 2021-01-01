@@ -1,7 +1,7 @@
 Change log
 ==========
 
-3.1 (unreleased)
+3.1 (2021-01-01)
 ----------------
 - revised ZMI 'Test Adding Items to Session'
 
