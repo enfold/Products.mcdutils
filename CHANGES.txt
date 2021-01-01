@@ -3,6 +3,7 @@ Change log
 
 3.1 (unreleased)
 ----------------
+- revised ZMI 'Test Adding Items to Session'
 
 
 3.0 (2020-08-07)
