@@ -6,9 +6,9 @@ from AccessControl.SecurityInfo import ClassSecurityInfo
 from OFS.PropertyManager import PropertyManager
 from OFS.SimpleItem import SimpleItem
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
-from ZPublisher.HTTPRequest import default_encoding
 from zope.interface import implementedBy
 from zope.interface import implementer
+from ZPublisher.HTTPRequest import default_encoding
 
 from .interfaces import IMemCacheSessionDataContainer
 from .mapping import MemCacheMapping

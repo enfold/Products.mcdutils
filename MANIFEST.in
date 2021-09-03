@@ -2,20 +2,14 @@ include *.txt
 include *.rst
 include *.py
 include buildout.cfg
-
-include *.yml
-exclude *.yml
-
-include .gitignore
-exclude .gitignore
-
-exclude MANIFEST.in
+include buildout4.cfg
+include tox.ini
 
 recursive-include docs *.png
 recursive-include docs *.py
 recursive-include docs *.rst
 recursive-include docs Makefile
 
-recursive-include Products *.gif
-recursive-include Products *.pt
-recursive-include Products *.py
+recursive-include src *.gif
+recursive-include src *.pt
+recursive-include src *.py
