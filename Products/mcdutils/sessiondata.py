@@ -6,6 +6,7 @@ from AccessControl.SecurityInfo import ClassSecurityInfo
 from OFS.PropertyManager import PropertyManager
 from OFS.SimpleItem import SimpleItem
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+from ZPublisher.HTTPRequest import default_encoding
 from zope.interface import implementedBy
 from zope.interface import implementer
 
@@ -63,16 +64,18 @@ class MemCacheSessionDataContainer(SimpleItem, PropertyManager):
         items = request.form.get('items', ())
         session = request['SESSION']
 
-        before = len(session)
+        before = len(session.keys())
         count = len(items)
 
         for line in items:
+            if not isinstance(line, bytes):
+                line = line.encode(default_encoding)
             k, v = line.split(b' ', 1)
             k = k.strip()
             v = v.strip()
             session[k] = v
 
-        after = len(session)
+        after = len(session.keys())
 
         return 'Before: %d;  after: %d; # items: %d' % (before, after, count)
 
