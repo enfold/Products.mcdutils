@@ -14,14 +14,6 @@ with-sphinx-doctests = false
 
 [tox]
 use-flake8 = true
-additional-envlist = [
-    "py27-zope213",
-    ]
-testenv-commands-pre = [
-    "py27-zope213: {envbindir}/buildout -nc {toxinidir}/buildout2.cfg buildout:directory={envdir} buildout:develop={toxinidir} install test",
-    "py27,py35: {envbindir}/buildout -nc {toxinidir}/buildout4.cfg buildout:directory={envdir} buildout:develop={toxinidir} install test",
-    "!py27-!py35: {envbindir}/buildout -nc {toxinidir}/buildout.cfg buildout:directory={envdir} buildout:develop={toxinidir} install test",
-    ]
 
 [coverage]
 fail-under = 84
@@ -38,7 +30,6 @@ additional-ignores = [
 [manifest]
 additional-rules = [
     "include *.txt",
-    "include buildout2.cfg",
     "include buildout4.cfg",
     "recursive-include docs *.png",
     "recursive-include src *.gif",
