@@ -1,5 +1,8 @@
-.. image:: https://api.travis-ci.org/dataflake/Products.mcdutils.svg?branch=master
-   :target: https://travis-ci.org/dataflake/Products.mcdutils
+.. image:: https://github.com/dataflake/Products.mcdutils/actions/workflows/tests.yml/badge.svg
+   :target: https://github.com/dataflake/Products.mcdutils/actions/workflows/tests.yml
+
+.. image:: https://coveralls.io/repos/github/dataflake/Products.mcdutils/badge.svg
+   :target: https://coveralls.io/github/dataflake/Products.mcdutils
 
 .. image:: https://readthedocs.org/projects/mcdutils/badge/?version=latest
    :target: https://mcdutils.readthedocs.io
@@ -7,11 +10,11 @@
 
 .. image:: https://img.shields.io/pypi/v/Products.mcdutils.svg
    :target: https://pypi.python.org/pypi/Products.mcdutils
-   :alt: PyPI
+   :alt: Current version on PyPI
 
 .. image:: https://img.shields.io/pypi/pyversions/Products.mcdutils.svg
    :target: https://pypi.python.org/pypi/Products.mcdutils
-   :alt: Python versions
+   :alt: Supported Python versions
 
 ===================
  Products.mcdutils
