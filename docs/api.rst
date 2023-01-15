@@ -4,7 +4,7 @@ Zope Interfaces
 ---------------
 
 :class:`Products.mcdutils.interfaces.ISessionDataContainer`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. autointerface:: Products.mcdutils.interfaces.ISessionDataContainer
    :members:
 
