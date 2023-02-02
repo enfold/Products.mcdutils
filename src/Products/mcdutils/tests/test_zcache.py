@@ -101,7 +101,7 @@ class MemCacheZCacheTests(unittest.TestCase):
         proxy._cached['%s|bar||' % _DUMMY_PATH_STR] = 'LMNOP'
 
         keys = _cached.keys()
-        _cached[_DUMMY_PATH_STR] = dict([(k, 1) for k in keys])
+        _cached[_DUMMY_PATH_STR] = {k: 1 for k in keys}
 
         cache.ZCache_invalidate(DummyOb())
 
@@ -219,11 +219,3 @@ class DummyProxy:
             return True
         except KeyError:
             return False
-
-
-def test_suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TestsOf_aggregateKey))
-    suite.addTest(unittest.makeSuite(MemCacheZCacheTests))
-    suite.addTest(unittest.makeSuite(MemCacheZCacheManagerTests))
-    return suite

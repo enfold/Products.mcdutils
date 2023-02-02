@@ -52,9 +52,3 @@ class MemCacheSDCFuncTests(unittest.TestCase):
         import transaction
         self.assertRaises(MemCacheError, transaction.commit)
         transaction.abort()
-
-
-def test_suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(MemCacheSDCFuncTests))
-    return suite

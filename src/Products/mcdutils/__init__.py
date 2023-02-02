@@ -15,21 +15,18 @@ def initialize(context):
     from .proxy import addMemCacheProxyForm
     context.registerClass(MemCacheProxy,
                           constructors=(addMemCacheProxyForm,
-                                        addMemCacheProxy),
-                          icon='www/proxy.gif')
+                                        addMemCacheProxy))
 
     from .sessiondata import MemCacheSessionDataContainer
     from .sessiondata import addMemCacheSessionDataContainer
     from .sessiondata import addMemCacheSessionDataContainerForm
     context.registerClass(MemCacheSessionDataContainer,
                           constructors=(addMemCacheSessionDataContainerForm,
-                                        addMemCacheSessionDataContainer),
-                          icon='www/sdc.gif')
+                                        addMemCacheSessionDataContainer))
 
     from .zcache import MemCacheZCacheManager
     from .zcache import addMemCacheZCacheManager
     from .zcache import addMemCacheZCacheManagerForm
     context.registerClass(MemCacheZCacheManager,
                           constructors=(addMemCacheZCacheManagerForm,
-                                        addMemCacheZCacheManager),
-                          icon='www/zcm.gif')
+                                        addMemCacheZCacheManager))

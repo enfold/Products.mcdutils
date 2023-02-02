@@ -34,11 +34,11 @@ class IMemCacheMapping(ISavepointDataManager):
 class IMemCacheProxy(Interface):
     """ Manage client connection to a pool of memcached servers.
     """
-    servers = Attribute(u'servers', u"""List of servers
+    servers = Attribute('servers', """List of servers
 
 Each item is a <host>:<port> server address.""")
 
-    client = Attribute(u'client', u"""memcache.Client instance""")
+    client = Attribute('client', """memcache.Client instance""")
     client.setTaggedValue('read_only', True)
 
     def get(key):
@@ -85,7 +85,7 @@ Each item is a <host>:<port> server address.""")
 class IMemCacheSessionDataContainer(ISessionDataContainer):
     """ memcache-specific SDC, using a proxy.
     """
-    proxy_path = Attribute(u"""Path to proxy.
+    proxy_path = Attribute("""Path to proxy.
 
 No session operations are possible if the path is invalid.""")
 

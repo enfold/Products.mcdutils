@@ -135,10 +135,3 @@ class DummyProxy:
             pass
 
     client = DummyClient()
-
-
-def test_suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(MemCacheMappingTests))
-    suite.addTest(unittest.makeSuite(MemCacheMappingSavepointTests))
-    return suite
