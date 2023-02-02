@@ -37,10 +37,10 @@ def aggregateKey(ob, view_name='', request=None, request_names=(),
 
     for key in request_names:
         val = request.get(key, '')
-        request_index.append('{}:{}'.format(str(key), str(val)))
+        request_index.append(f'{key}:{val}')
 
     for key, val in local_keys.items():
-        local_index.append('{}:{}'.format(str(key), str(val)))
+        local_index.append(f'{key}:{val}')
 
     full_key = '|'.join((path, str(view_name),
                          ','.join(request_index),
