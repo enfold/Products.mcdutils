@@ -1,16 +1,30 @@
+##############################################################################
+#
+# Copyright (c) 2008-2023 Tres Seaver and Contributors. All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+#############################################################################
+
 from setuptools import find_packages
 from setuptools import setup
 
 
-readme = open('README.rst').read()
-history = open('CHANGES.txt').read()
-long_description = readme + '\n\n' + history
+def _read(name):
+    with open(name) as fp:
+        return fp.read()
+
 
 setup(name='Products.mcdutils',
       version='4.1.dev0',
       description=('A Zope product with memcached-backed ZCache and '
                    'Zope session implementations.'),
-      long_description=long_description,
+      long_description=_read('README.rst') + '\n\n' + _read('CHANGES.rst'),
       classifiers=[
         'Development Status :: 6 - Mature',
         'Environment :: Web Environment',
@@ -53,6 +67,9 @@ setup(name='Products.mcdutils',
         'Zope >= 5',
         ],
       extras_require={
-        'docs': ['repoze.sphinx.autointerface', 'Sphinx'],
+        'docs': ['sphinx',
+                 'repoze.sphinx.autointerface',
+                 'sphinx-rtd-theme',
+                 'pkginfo'],
         },
       )
