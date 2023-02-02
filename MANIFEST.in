@@ -13,5 +13,4 @@ recursive-include docs Makefile
 recursive-include src *.py
 include *.txt
 recursive-include docs *.png
-recursive-include src *.gif
 recursive-include src *.pt

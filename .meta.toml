@@ -31,6 +31,5 @@ additional-ignores = [
 additional-rules = [
     "include *.txt",
     "recursive-include docs *.png",
-    "recursive-include src *.gif",
     "recursive-include src *.pt",
     ]
