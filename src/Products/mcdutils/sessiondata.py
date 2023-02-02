@@ -1,6 +1,4 @@
 """ Products.mcdutils session data container """
-import six
-
 from AccessControl.class_init import InitializeClass
 from AccessControl.SecurityInfo import ClassSecurityInfo
 from OFS.PropertyManager import PropertyManager
@@ -113,7 +111,7 @@ class MemCacheSessionDataContainer(SimpleItem, PropertyManager):
 
     def _safe_key(self, key):
         """ Helper to ensure the key is always a binary string """
-        if isinstance(key, six.text_type):
+        if isinstance(key, str):
             key = key.encode('UTF-8')
         return key
 

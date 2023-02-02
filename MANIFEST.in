@@ -1,6 +1,5 @@
 # Generated from:
 # https://github.com/zopefoundation/meta/tree/master/config/zope-product
-
 include *.rst
 include *.txt
 include buildout.cfg
@@ -13,7 +12,6 @@ recursive-include docs Makefile
 
 recursive-include src *.py
 include *.txt
-include buildout4.cfg
 recursive-include docs *.png
 recursive-include src *.gif
 recursive-include src *.pt

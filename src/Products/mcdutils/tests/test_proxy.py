@@ -140,10 +140,3 @@ class MemCacheProxyTests(unittest.TestCase):
         self.assertTrue(proxy.set(KEY, proxy.create(KEY)))
         self.assertTrue(proxy.delete(KEY))
         self.assertIsNone(proxy.get(KEY))
-
-
-def test_suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(FauxClientTests))
-    suite.addTest(unittest.makeSuite(MemCacheProxyTests))
-    return suite

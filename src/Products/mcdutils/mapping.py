@@ -155,7 +155,7 @@ InitializeClass(MemCacheMapping)
 
 
 @implementer(IDataManagerSavepoint)
-class MemCacheMappingSavepoint(object):
+class MemCacheMappingSavepoint:
     """ A simple savepoint object
     """
 

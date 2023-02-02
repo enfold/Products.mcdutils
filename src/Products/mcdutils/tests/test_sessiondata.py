@@ -77,9 +77,3 @@ class MemCacheSessionDataTests(unittest.TestCase):
         sdc = self._makeOne('mcsdc')
         created = sdc.new_or_existing('foobar')
         self.assertTrue(sdc.get('foobar') is created)
-
-
-def test_suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(MemCacheSessionDataTests))
-    return suite

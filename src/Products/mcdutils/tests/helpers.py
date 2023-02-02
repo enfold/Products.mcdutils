@@ -1,11 +1,10 @@
 """ Unit test helper modules """
-import six
 
 
 class DummyMemcache(dict):
 
     def _assertKeyBinary(self, key):
-        if not isinstance(key, six.binary_type):
+        if not isinstance(key, bytes):
             raise ValueError('Key must be binary string.')
         return key
 
