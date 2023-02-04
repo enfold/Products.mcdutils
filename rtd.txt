@@ -1,5 +1,0 @@
-repoze.sphinx.autointerface
-Zope2>=4.0b1
-Persistence>=3.0a3
-RestrictedPython>=4.0a1
-Products.mcdutils
