@@ -1,70 +1,66 @@
 Development
 ===========
 
-.. highlight:: console
+Bug tracker
+-----------
+For bug reports, suggestions or questions please use the
+GitHub issue tracker at
+https://github.com/dataflake/Products.mcdutils/issues.
+
 
 Getting the source code
 -----------------------
-The source code is maintained in the Git repository.::
+The source code is maintained on GitHub. To check out the main branch:
+
+.. code-block:: console
 
   $ git clone https://github.com/dataflake/Products.mcdutils.git
 
-Setting up a development sandbox
---------------------------------
-Once you've obtained a source checkout, you need to run the buildout::
+You can also browse the code online at
+https://github.com/dataflake/Products.mcdutils
 
-  $ cd Products.mcdutils
-  $ python3 -m venv .
-  $ bin/pip install -U pip setuptools zc.buildout tox
-  $ bin/buildout
 
-The ``pip`` step is only needed after the initial checkout because
-it produces the script ``bin/buildout``.
+Preparing the development sandbox
+---------------------------------
+The following steps only need to be done once to install all the tools and
+scripts needed for building, packaging and testing. First, create a
+:term:`Virtual environment`. The example here uses Python 3.11, but any Python
+version supported by this package will work. Then install all the required
+tools:
 
-The buildout will create the scripts that are used for code testing
-and documentation building, described below.
+.. code-block:: console
 
-Testing code, determining test coverage and linting
----------------------------------------------------
-Once the buildout has run, the unit tests can be run as follows::
+    $ cd Products.mcdutils
+    $ python3.11 -m venv .
+    $ bin/pip install -U pip wheel
+    $ bin/pip install -U setuptools zc.buildout tox twine
 
-  $ bin/test
 
-Code coverage and linting is done through the script at ``bin/tox``::
+Running the tests
+-----------------
+You can use ``tox`` to run the unit and integration tests in this package. The
+shipped ``tox`` configuration can run the tests for all supported platforms.
+You can read the entire long list of possible options on the
+`tox CLI interface documentation page
+<https://tox.wiki/en/latest/cli_interface.html>`_, but the following examples
+will get you started:
 
-  $ bin/tox
+.. code-block:: console
 
-Calling it without any arguments will run the unit tests, code coverage
-report and linting. You can see the tests configured for it with the ``-l``
-switch::
-
-  $ bin/tox -l
-  py27
-  py35
-  py36
-  py37
-  py38
-  lint
-  coverage
-
-``py27`` represents the unit tests, run under Python 2.7. You can run each
-of these by themselves with the ``-e`` switch::
-
-  $ bin/tox -e py37
-
-Coverage report output is as text to the terminal, and as HTML files under
-``parts/coverage/``.
-
-The result of linting checks are shown as text on the terminal as well as
-HTML files under ``parts/flake8/``
+    $ bin/tox -l       # List all available environments
+    $ bin/tox -pall    # Run tests for all environments in parallel
+    $ bin/tox -epy311  # Run tests on Python 3.11 only
+    $ bin/tox -elint   # Run package sanity checks and lint the code
 
 
 Building the documentation
 --------------------------
-The Sphinx documentation is built by doing the following from the
-directory containing setup.py::
+``tox`` is also used to build the :term:`Sphinx`-based documentation. The
+input files are in the `docs` subfolder and the documentation build step will
+compile them to HTML. The output is stored in `docs/_build/html/`:
 
-  $ cd docs
-  $ make html
+.. code-block:: console
 
-The finished HTML files are under `docs/_build/html`.
+    $ bin/tox -edocs
+
+If the documentation contains doctests they are run as well.
