@@ -106,6 +106,16 @@ class MemCacheMapping(PersistentMapping):
         """ See IDataManager.
         """
 
+    security.declarePrivate('invalidate')  # NOQA: D001
+
+    def invalidate(self):
+        """ See IDataManager.
+        """
+        try:
+            self._p_proxy.delete(self._p_key)
+        except KeyError:
+            pass
+
     security.declarePrivate('tpc_vote')  # NOQA: D001
 
     def tpc_vote(self, txn):
