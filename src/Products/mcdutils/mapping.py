@@ -109,7 +109,7 @@ class MemCacheMapping(PersistentMapping):
     security.declarePrivate('invalidate')  # NOQA: D001
 
     def invalidate(self):
-        """ See IDataManager.
+        """ See TransientObject.
         """
         try:
             self._p_proxy.delete(self._p_key)
