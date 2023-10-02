@@ -126,6 +126,19 @@ class MemCacheMappingTests(unittest.TestCase):
             self.assertIn("'%s': '<password obscured>'" % pw_key, mapping_repr)
         self.assertIn("'normal': 'normalvalue'", mapping_repr)
 
+    def test_invalidate(self):
+        """Tests invalidate method"""
+        proxy = DummyProxy()
+        proxy._set('key', 'myvalue')
+        mapping = self._makeOne('key', proxy)
+
+        self.assertIn('key', proxy._cached)
+        mapping.invalidate()
+        self.assertNotIn('key', proxy._cached)
+
+        # Cleaning again won't throw errors
+        self.assertIsNone(mapping.invalidate())
+
 
 class DummyClient:
     def _get_server(self, key):
