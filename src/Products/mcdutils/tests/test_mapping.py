@@ -159,4 +159,10 @@ class DummyProxy:
         except KeyError:
             pass
 
-    client = DummyClient()
+    def delete(self, key):
+        try:
+            del self._cached[key]
+        except KeyError:
+            pass
+
+    client = DummyClient()c
