@@ -4,7 +4,6 @@ Change log
 4.1 (unreleased)
 ----------------
 
-
 - Adds invalidate method to MemCacheMapping and test
 
 4.0 (2023-02-02)
