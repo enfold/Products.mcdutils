@@ -165,4 +165,4 @@ class DummyProxy:
         except KeyError:
             pass
 
-    client = DummyClient()c
+    client = DummyClient()
