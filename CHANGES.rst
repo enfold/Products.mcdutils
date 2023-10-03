@@ -1,10 +1,11 @@
 Change log
 ==========
 
-4.1 (unreleased)
+4.1 (2023-10-03)
 ----------------
 
 - Adds invalidate method to MemCacheMapping and test
+
 
 4.0 (2023-02-02)
 ----------------
