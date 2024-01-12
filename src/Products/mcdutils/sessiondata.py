@@ -41,10 +41,11 @@ class MemCacheSessionDataContainer(SimpleItem, PropertyManager):
 
     def _get_proxy(self):
         if self._v_proxy is None:
-            if not self.proxy_path:
+            proxy_path = self.getProperty('proxy_path')
+            if not proxy_path:
                 from Products.mcdutils import MemCacheError
                 raise MemCacheError('No proxy defined')
-            self._v_proxy = self.unrestrictedTraverse(self.proxy_path)
+            self._v_proxy = self.unrestrictedTraverse(proxy_path)
         return self._v_proxy
 
     # proxy = property(_get_proxy,)  # can't acquire inside property!

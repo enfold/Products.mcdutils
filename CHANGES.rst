@@ -7,6 +7,8 @@ Change log
 - Use getProperty to get the list of servers so that collective.regenv can be
   used to configure the servers.
 
+- Use getProperty to get proxy_path so it can be configured with collective.regenv.
+
 
 4.2 (2023-12-28)
 ----------------

@@ -159,11 +159,12 @@ class MemCacheZCacheManager(CacheManager, SimpleItem, PropertyManager):
 
     def _get_proxy(self):
         if self._v_proxy is None:
-            if not self.proxy_path:
+            proxy_path = self.getProperty('proxy_path')
+            if not proxy_path:
                 # import late to avoid cycle
                 from . import MemCacheError
                 raise MemCacheError('No proxy defined')
-            self._v_proxy = self.unrestrictedTraverse(self.proxy_path)
+            self._v_proxy = self.unrestrictedTraverse(proxy_path)
         return self._v_proxy
 
     def ZCacheManager_getCache(self):
