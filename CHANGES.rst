@@ -1,6 +1,12 @@
 Change log
 ==========
 
+4.3+enfold2 (unreleased)
+------------------------
+
+- Nothing changed yet.
+
+
 4.3+enfold1 (2024-01-12)
 ------------------------
 

@@ -21,7 +21,7 @@ def _read(name):
 
 
 setup(name='Products.mcdutils',
-      version='4.3+enfold1',
+      version='4.3+enfold2.dev0',
       description=('A Zope product with memcached-backed ZCache and '
                    'Zope session implementations.'),
       long_description=_read('README.rst') + '\n\n' + _read('CHANGES.rst'),
