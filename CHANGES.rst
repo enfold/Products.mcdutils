@@ -1,8 +1,11 @@
 Change log
 ==========
 
-4.3 (unreleased)
+4.3+enfold1 (unreleased)
 ----------------
+
+- Use getProperty to get the list of servers so that collective.regenv can be
+  used to configure the servers.
 
 
 4.2 (2023-12-28)

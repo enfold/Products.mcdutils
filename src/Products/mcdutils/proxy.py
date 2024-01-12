@@ -60,8 +60,9 @@ class MemCacheProxy(SimpleItem, PropertyManager):
         if self._v_client is not None:
             return self._v_client
 
-        if self.servers:
-            client = self._v_client = memcache.Client(self.servers)
+        servers = self.getProperty('servers')
+        if servers:
+            client = self._v_client = memcache.Client(servers)
         else:
             client = self._v_client = FauxClient()
 
