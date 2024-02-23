@@ -37,7 +37,7 @@ class FauxClient(dict):
 @implementer(IMemCacheProxy + implementedBy(SimpleItem)
              + implementedBy(PropertyManager))
 class MemCacheProxy(SimpleItem, PropertyManager):
-    """ Implement ISDC via a a pool of memcache servers.
+    """ Implement ISDC via a pool of memcache servers.
     """
     security = ClassSecurityInfo()
 
@@ -69,21 +69,6 @@ class MemCacheProxy(SimpleItem, PropertyManager):
         return client
 
     client = property(_get_client)
-
-    _servers = ()
-
-    def _set_servers(self, value):
-        self._servers = value
-        try:
-            del self._v_client
-        except AttributeError:
-            pass
-        try:
-            del self._v_cache
-        except AttributeError:
-            pass
-
-    servers = property(lambda self: self._servers, _set_servers)
 
     #
     #   ZMI

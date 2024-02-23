@@ -4,7 +4,7 @@ Change log
 4.3+enfold2 (unreleased)
 ------------------------
 
-- Nothing changed yet.
+- Remove old servers property.
 
 
 4.3+enfold1 (2024-01-12)
