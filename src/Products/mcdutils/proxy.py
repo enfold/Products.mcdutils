@@ -12,7 +12,7 @@
 #############################################################################
 """ Memcache proxy """
 import memcache
-
+import os
 from AccessControl.class_init import InitializeClass
 from AccessControl.SecurityInfo import ClassSecurityInfo
 from OFS.PropertyManager import PropertyManager
@@ -60,7 +60,7 @@ class MemCacheProxy(SimpleItem, PropertyManager):
         if self._v_client is not None:
             return self._v_client
 
-        servers = self.getProperty('servers')
+        servers = self.servers
         if servers:
             client = self._v_client = memcache.Client(servers)
         else:
@@ -70,12 +70,21 @@ class MemCacheProxy(SimpleItem, PropertyManager):
 
     client = property(_get_client)
 
+    def _get_servers(self):
+        servers = os.getenv('MEMCACHE_SERVERS')
+        if servers:
+            return servers.split()
+        else:
+            return list()
+
+    servers = property(_get_servers)
+
     #
     #   ZMI
     #
     meta_type = 'MemCache Proxy'
     _properties = ({'id': 'title', 'type': 'string', 'mode': 'w'},
-                   {'id': 'servers', 'type': 'ulines', 'mode': 'w'})
+                   {'id': 'servers', 'type': 'ulines', 'mode': 'r'})
 
     manage_options = (PropertyManager.manage_options
                       + SimpleItem.manage_options)

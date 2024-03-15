@@ -6,6 +6,8 @@ Change log
 
 - Remove old servers property.
 
+- Get servers from environment variable.
+
 
 4.3+enfold1 (2024-01-12)
 ------------------------
