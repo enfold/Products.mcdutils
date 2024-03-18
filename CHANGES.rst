@@ -1,7 +1,7 @@
 Change log
 ==========
 
-4.3+enfold2 (unreleased)
+4.3+enfold2 (2024-03-18)
 ------------------------
 
 - Remove old servers property.
